@@ -24,8 +24,15 @@ if($regex->test("http://github.com"))
 else
 	echo "invalid url";
 
+if (preg_match($regex, 'http://github.com')) {
+	echo 'valid url';
+} else {
+	echo 'invalud url';
+}
+
 
 echo "<pre>". $regex->getRegex() ."</pre>";
+
 
 
 echo $regex ->clean(array("modifiers"=> "m","replaceLimit"=>4))
