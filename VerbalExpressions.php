@@ -119,6 +119,24 @@ class VerEx {
 		$this->add("([^". $this->sanitize($value) ."]*)");
 		return $this;
 	}
+
+	/**
+	 * Accept any non-empty string 
+	 */
+	function something() {
+		$this->add("(.+)");
+		return $this;
+	}
+
+	/**
+	 * Anything non-empty except for these chars
+	 * @param  string $value The unaccepted chars
+	 */
+	function somethingBut( $value ) {
+		$this->add("([^". $this->sanitize($value) ."]+)");
+		return $this;
+	}
+
 	/**
 	 * Shorthand for preg_replace()
 	 * @param  string $source the string that will be affected(subject)
