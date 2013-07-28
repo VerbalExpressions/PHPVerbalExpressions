@@ -182,7 +182,7 @@ class VerEx {
 	 * @param  string $value The chars looked for
 	 */
 	function anyOf( $value ) {
-		$this->add("["+ value +"]");
+		$this->add("[". $value ."]");
 		return $this;
 	}
 	/**
