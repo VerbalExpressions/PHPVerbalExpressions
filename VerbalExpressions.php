@@ -40,11 +40,11 @@
 
 class VerEx {
 
-	var $prefixes = "";
-	var $source = "";
-	var $suffixes = "";
-	var $modifiers = "m"; // default to global multiline matching
-	var $replaceLimit = 1; // the limit of preg_replace when g modifier is not set
+	private $prefixes = "";
+	private $source = "";
+	private $suffixes = "";
+	private $modifiers = "m"; // default to global multiline matching
+	private $replaceLimit = 1; // the limit of preg_replace when g modifier is not set
 
 	/**
 	 * Sanitation function for adding anything safely to the expression
