@@ -57,8 +57,7 @@ class VerEx {
 	 */
 	public function sanitize($value) 
 	{
-		if(!$value) 
-		{
+		if(!$value) {
 			return $value;
 		}
 		return preg_quote($value, "/");
@@ -88,7 +87,7 @@ class VerEx {
 	 * @param  boolean $enable Enables or disables the line starting. Default value: true
 	 * @return VerEx
 	 */
-	public function startOfLine($enable=true)
+	public function startOfLine($enable = true)
 	{
 		$this->prefixes = $enable ? "^" : "";
 		return $this;
@@ -103,7 +102,7 @@ class VerEx {
 	 * @param  boolean $enable Enables or disables the line ending. Default value: true
 	 * @return VerEx
 	 */
-	public function endOfLine($enable=true) 
+	public function endOfLine($enable = true) 
 	{
 		$this->suffixes = $enable ? "$" : "";
 		return $this;
@@ -171,7 +170,7 @@ class VerEx {
 	 * @param  string $value The unaccepted chars
 	 * @return VerEx
 	 */
-	public function anythingBut( $value ) 
+	public function anythingBut($value) 
 	{
 		$this->add("([^". $this->sanitize($value) ."]*)");
 		return $this;
@@ -219,8 +218,7 @@ class VerEx {
 	public function replace($source, $value) 
 	{
 		// php doesn't have g modifier so we remove it if it's there and we remove limit param
-		if(strpos($this->modifiers, 'g') !== false)
-		{
+		if (strpos($this->modifiers, 'g') !== false) {
 			$this->modifiers = str_replace('g', '', $this->modifiers);
 			return preg_replace($this->getRegex(), $value, $source);
 		}		
@@ -325,8 +323,7 @@ class VerEx {
 
 		$arg_num = func_num_args();
 
-		if($arg_num%2 != 0)
-		{
+		if($arg_num%2 != 0) {
 			throw new Exception("Number of args must be even", 1);
 		}
 
@@ -356,8 +353,7 @@ class VerEx {
 	 */
 	public function addModifier($modifier)
 	{
-		if(strpos($this->modifiers, $modifier) === false)
-		{
+		if(strpos($this->modifiers, $modifier) === false) {
 			$this->modifiers .= $modifier;
 		}
 
@@ -389,14 +385,12 @@ class VerEx {
 	 * @param  boolean $enable Enables or disables case sensitive. Default true
 	 * @return VerEx
 	 */
-	public function withAnyCase($enable=true)
+	public function withAnyCase($enable = true)
 	{
-		if($enable)
-		{
+		if($enable) {
 			$this->addModifier('i');
 		}
-		else
-		{
+		else {
 			$this->removeModifier('i');
 		}
 
@@ -412,14 +406,12 @@ class VerEx {
 	 * @param  boolean $enable Enables or disables g modifier. Default true
 	 * @return VerEx
 	 */
-	public function stopAtFirst($enable=true) 
+	public function stopAtFirst($enable = true) 
 	{
-		if($enable)
-		{
+		if($enable) {
 			$this->addModifier('g');
 		}
-		else
-		{
+		else {
 			$this->removeModifier('g');
 		}
 
@@ -435,14 +427,12 @@ class VerEx {
 	 * @param  boolean $enable Enables or disables m modifier. Default true
 	 * @return VerEx
 	 */
-	public function searchOneLine($enable=true) 
+	public function searchOneLine($enable = true) 
 	{
-		if($enable===true)
-		{
+		if($enable===true) {
 			$this->addModifier('m');
 		}
-		else
-		{
+		else {
 			$this->removeModifier('m');
 		}
 
@@ -489,20 +479,17 @@ class VerEx {
 	 */
 	public function _or($value)
 	{
-		if(strpos($this->prefixes,"(")===false)
-		{
+		if(strpos($this->prefixes,"(")===false) {
 			$this->prefixes .= "(";
 		}
 
-		if(strpos($this->suffixes, ")")===false)
-		{
+		if(strpos($this->suffixes, ")")===false) {
 			$this->suffixes .= ")";
 		}
 
 		$this->add(")|(");
 
-		if($value)
-		{
+		if($value) {
 			$this->add($value);
 		}
 
@@ -547,8 +534,7 @@ class VerEx {
 	public function test($value)
 	{
 		// php doesn't have g modifier so we remove it if it's there and call preg_match_all()
-		if(strpos($this->modifiers, 'g') !== false)
-		{
+		if(strpos($this->modifiers, 'g') !== false) {
 			$this->modifiers = str_replace('g', '', $this->modifiers);
 
 			return preg_match_all($this->getRegex(), $value);
