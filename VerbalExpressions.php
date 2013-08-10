@@ -171,7 +171,8 @@ class VerEx {
 	 * @param  string $value The unaccepted chars
 	 * @return VerEx
 	 */
-	public function anythingBut( $value ) {
+	public function anythingBut( $value ) 
+	{
 		$this->add("([^". $this->sanitize($value) ."]*)");
 		return $this;
 	}
