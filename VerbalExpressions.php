@@ -71,7 +71,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param string $value the stuff to be added
-	 * @return object
+	 * @return VerEx
 	 */
 	public function add($value) 
 	{
@@ -86,7 +86,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  boolean $enable Enables or disables the line starting. Default value: true
-	 * @return object
+	 * @return VerEx
 	 */
 	public function startOfLine($enable=true)
 	{
@@ -101,7 +101,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  boolean $enable Enables or disables the line ending. Default value: true
-	 * @return object
+	 * @return VerEx
 	 */
 	public function endOfLine($enable=true) 
 	{
@@ -116,7 +116,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  string $value The string to be looked for
-	 * @return object
+	 * @return VerEx
 	 */
 	public function then($value) 
 	{
@@ -140,7 +140,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  string $value The string to be looked for
-	 * @return object
+	 * @return VerEx
 	 */
 	public function maybe($value) 
 	{
@@ -154,7 +154,7 @@ class VerEx {
 	 * Accept any string
 	 *
 	 * @access public
-	 * @return object 
+	 * @return VerEx 
 	 */
 	public function anything() 
 	{
@@ -169,7 +169,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  string $value The unaccepted chars
-	 * @return object
+	 * @return VerEx
 	 */
 	public function anythingBut( $value ) {
 		$this->add("([^". $this->sanitize($value) ."]*)");
@@ -182,7 +182,7 @@ class VerEx {
 	 * Accept any non-empty string 
 	 *
 	 * @access public
-	 * @return object
+	 * @return VerEx
 	 */
 	public function something() 
 	{
@@ -197,7 +197,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  string $value The unaccepted chars
-	 * @return object
+	 * @return VerEx
 	 */
 	public function somethingBut($value) 
 	{
@@ -213,7 +213,7 @@ class VerEx {
 	 * @access public
 	 * @param  string $source the string that will be affected(subject)
 	 * @param  string $value  the replacement
-	 * @return object
+	 * @return VerEx
 	 */
 	public function replace($source, $value) 
 	{
@@ -233,7 +233,7 @@ class VerEx {
 	 * Match line break
 	 *
 	 * @access public
-	 * @return object
+	 * @return VerEx
 	 */
 	public function lineBreak() 
 	{
@@ -260,7 +260,7 @@ class VerEx {
 	 * Match tabs.
 	 *
 	 * @access public
-	 * @return object
+	 * @return VerEx
 	 */
 	public function tab() 
 	{
@@ -274,7 +274,7 @@ class VerEx {
 	 * Match any alfanumeric
 	 *
 	 * @access public
-	 * @return object
+	 * @return VerEx
 	 */
 	public function word() 
 	{
@@ -289,7 +289,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  string $value The chars looked for
-	 * @return object
+	 * @return VerEx
 	 */
 	public function anyOf($value) 
 	{
@@ -304,7 +304,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  string $value The chars looked for
-	 * @return object
+	 * @return VerEx
 	 */
 	public function any($value) 
 	{
@@ -317,7 +317,7 @@ class VerEx {
 	 * Adds a range to our expresion ex: range(a,z) => a-z, range(a,z,0,9) => a-z0-9
 	 *
 	 * @access public
-	 * @return object
+	 * @return VerEx
 	 */
 	public function range() 
 	{
@@ -351,7 +351,7 @@ class VerEx {
 	 * 
 	 * @access public
 	 * @param str $modifier
-	 * @return object
+	 * @return VerEx
 	 */
 	public function addModifier($modifier)
 	{
@@ -370,7 +370,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param str $modifier
-	 * @return object
+	 * @return VerEx
 	 */
 	public function removeModifier($modifier)
 	{
@@ -386,7 +386,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  boolean $enable Enables or disables case sensitive. Default true
-	 * @return object
+	 * @return VerEx
 	 */
 	public function withAnyCase($enable=true)
 	{
@@ -409,7 +409,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  boolean $enable Enables or disables g modifier. Default true
-	 * @return object
+	 * @return VerEx
 	 */
 	public function stopAtFirst($enable=true) 
 	{
@@ -432,7 +432,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  boolean $enable Enables or disables m modifier. Default true
-	 * @return object
+	 * @return VerEx
 	 */
 	public function searchOneLine($enable=true) 
 	{
@@ -455,7 +455,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  string $value Your expresion
-	 * @return object
+	 * @return VerEx
 	 */
 	public function multiple($value) 
 	{
@@ -484,7 +484,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  string $value new expression
-	 * @return object
+	 * @return VerEx
 	 */
 	public function _or($value)
 	{
@@ -563,7 +563,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param array $options
-	 * @return object
+	 * @return VerEx
 	 */
 	public function clean($options = array()) 
 	{
