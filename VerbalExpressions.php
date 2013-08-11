@@ -372,14 +372,7 @@ class VerEx {
 	 */
 	public function withAnyCase($enable = true)
 	{
-		if($enable) {
-			$this->addModifier('i');
-		}
-		else {
-			$this->removeModifier('i');
-		}
-
-		return $this;
+		return $enable ? $this->addModifier('i') : $this->removeModifier('i');
 	}
 
 	/**
@@ -393,14 +386,7 @@ class VerEx {
 	 */
 	public function stopAtFirst($enable = true)
 	{
-		if($enable) {
-			$this->addModifier('g');
-		}
-		else {
-			$this->removeModifier('g');
-		}
-
-		return $this;
+		return $enable ? $this->addModifier('g') : $this->removeModifier('g');
 	}
 
 	/**
@@ -414,14 +400,7 @@ class VerEx {
 	 */
 	public function searchOneLine($enable = true)
 	{
-		if($enable===true) {
-			$this->addModifier('m');
-		}
-		else {
-			$this->removeModifier('m');
-		}
-
-		return $this;
+		return $enable ? $this->addModifier('m') : $this->removeModifier('m');
 	}
 
 	/**
