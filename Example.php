@@ -20,9 +20,9 @@ $regex 	->startOfLine()
 
 
 if($regex->test("http://github.com"))
-	echo "valid url";
+	echo "valid url". '<br>';
 else
-	echo "invalid url";
+	echo "invalid url". '<br>';
 
 if (preg_match($regex, 'http://github.com')) {
 	echo 'valid url';
