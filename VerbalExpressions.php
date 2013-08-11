@@ -6,38 +6,6 @@
  */
 
 
-// // some tests
-
-// $regex = new VerEx;
-
-// $regex 	->startOfLine()
-// 		->then( "http" )
-// 		->maybe( "s" )
-// 		->then( "://" )
-// 		->maybe( "www." )
-// 		->anythingBut( " " )
-// 		->endOfLine();
-
-
-// if($regex->test("http://github.com"))
-// 	echo "valid url";
-// else
-// 	echo "invalid url";
-
-// if (preg_match($regex, 'http://github.com')) {
-// 	echo 'valid url';
-// } else {
-// 	echo 'invalud url';
-// }
-
-// echo "<pre>". $regex->getRegex() ."</pre>";
-
-
-// echo $regex ->clean(array("modifiers"=> "m","replaceLimit"=>4))
-// 			->find(' ')
-// 			->replace("This is a small test http://somesite.com and some more text.", "-");
-
-
 class VerEx {
 
 	public $prefixes     = "";
@@ -55,24 +23,21 @@ class VerEx {
 	 * @param  string $value the to be added
 	 * @return string        escaped value
 	 */
-	public function sanitize($value) 
+	public function sanitize($value)
 	{
-		if(!$value) {
-			return $value;
-		}
-		return preg_quote($value, "/");
+		return $value ? preg_quote($value, "/") : $value;
 	}
 
 	/**
 	 * Add
 	 *
-	 * Add stuff to the expression 
+	 * Add stuff to the expression
 	 *
 	 * @access public
 	 * @param string $value the stuff to be added
 	 * @return VerEx
 	 */
-	public function add($value) 
+	public function add($value)
 	{
 		$this->source .= $value;
 		return $this;
@@ -102,7 +67,7 @@ class VerEx {
 	 * @param  boolean $enable Enables or disables the line ending. Default value: true
 	 * @return VerEx
 	 */
-	public function endOfLine($enable = true) 
+	public function endOfLine($enable = true)
 	{
 		$this->suffixes = $enable ? "$" : "";
 		return $this;
@@ -117,17 +82,16 @@ class VerEx {
 	 * @param  string $value The string to be looked for
 	 * @return VerEx
 	 */
-	public function then($value) 
+	public function then($value)
 	{
-		$this->add("(".$this->sanitize($value).")");
-		return $this;
+		return $this->add("(".$this->sanitize($value).")");
 	}
 
 	/**
 	 * alias for then()
 	 * @param  string $value The string to be looked for
 	 */
-	public function find($value) 
+	public function find($value)
 	{
 		return $this->then($value);
 	}
@@ -141,10 +105,9 @@ class VerEx {
 	 * @param  string $value The string to be looked for
 	 * @return VerEx
 	 */
-	public function maybe($value) 
+	public function maybe($value)
 	{
-		$this->add("(".$this->sanitize($value).")?");
-		return $this;
+		return $this->add("(".$this->sanitize($value).")?");
 	}
 
 	/**
@@ -153,12 +116,11 @@ class VerEx {
 	 * Accept any string
 	 *
 	 * @access public
-	 * @return VerEx 
+	 * @return VerEx
 	 */
-	public function anything() 
+	public function anything()
 	{
-		$this->add("(.*)");
-		return $this;
+		return $this->add("(.*)");
 	}
 
 	/**
@@ -170,24 +132,22 @@ class VerEx {
 	 * @param  string $value The unaccepted chars
 	 * @return VerEx
 	 */
-	public function anythingBut($value) 
+	public function anythingBut($value)
 	{
-		$this->add("([^". $this->sanitize($value) ."]*)");
-		return $this;
+		return $this->add("([^". $this->sanitize($value) ."]*)");
 	}
 
 	/**
 	 * Something
 	 *
-	 * Accept any non-empty string 
+	 * Accept any non-empty string
 	 *
 	 * @access public
 	 * @return VerEx
 	 */
-	public function something() 
+	public function something()
 	{
-		$this->add("(.+)");
-		return $this;
+		return $this->add("(.+)");
 	}
 
 	/**
@@ -199,10 +159,9 @@ class VerEx {
 	 * @param  string $value The unaccepted chars
 	 * @return VerEx
 	 */
-	public function somethingBut($value) 
+	public function somethingBut($value)
 	{
-		$this->add("([^". $this->sanitize($value) ."]+)");
-		return $this;
+		return $this->add("([^". $this->sanitize($value) ."]+)");
 	}
 
 	/**
@@ -215,13 +174,13 @@ class VerEx {
 	 * @param  string $value  the replacement
 	 * @return VerEx
 	 */
-	public function replace($source, $value) 
+	public function replace($source, $value)
 	{
 		// php doesn't have g modifier so we remove it if it's there and we remove limit param
 		if (strpos($this->modifiers, 'g') !== false) {
 			$this->modifiers = str_replace('g', '', $this->modifiers);
 			return preg_replace($this->getRegex(), $value, $source);
-		}		
+		}
 
 		return preg_replace($this->getRegex(), $value, $source, $this->replaceLimit);
 	}
@@ -234,10 +193,9 @@ class VerEx {
 	 * @access public
 	 * @return VerEx
 	 */
-	public function lineBreak() 
+	public function lineBreak()
 	{
-		$this->add("(\\n|(\\r\\n))");
-		return $this;
+		return $this->add("(\\n|(\\r\\n))");
 	}
 
 	/**
@@ -248,7 +206,7 @@ class VerEx {
 	 * @access public
 	 * return object
 	 */
-	public function br() 
+	public function br()
 	{
 		return $this->lineBreak();
 	}
@@ -261,10 +219,9 @@ class VerEx {
 	 * @access public
 	 * @return VerEx
 	 */
-	public function tab() 
+	public function tab()
 	{
-		$this->add("\\t");
-		return $this;
+		return $this->add("\\t");
 	}
 
 	/**
@@ -275,10 +232,9 @@ class VerEx {
 	 * @access public
 	 * @return VerEx
 	 */
-	public function word() 
+	public function word()
 	{
-		$this->add("\\w+");
-		return $this;
+		return $this->add("\\w+");
 	}
 
 	/**
@@ -290,10 +246,9 @@ class VerEx {
 	 * @param  string $value The chars looked for
 	 * @return VerEx
 	 */
-	public function anyOf($value) 
+	public function anyOf($value)
 	{
-		$this->add("[". $value ."]");
-		return $this;
+		return $this->add("[". $value ."]");
 	}
 
 	/**
@@ -305,7 +260,7 @@ class VerEx {
 	 * @param  string $value The chars looked for
 	 * @return VerEx
 	 */
-	public function any($value) 
+	public function any($value)
 	{
 		return $this->anyOf($value);
 	}
@@ -318,7 +273,7 @@ class VerEx {
 	 * @access public
 	 * @return VerEx
 	 */
-	public function range() 
+	public function range()
 	{
 
 		$arg_num = func_num_args();
@@ -337,16 +292,14 @@ class VerEx {
 
 		$value .= "]";
 
-		$this->add($value);
-
-		return $this;
+		return $this->add($value);
 	}
 
 	/**
 	 * Add a modifier
 	 *
 	 * Adds a modifier
-	 * 
+	 *
 	 * @access public
 	 * @param str $modifier
 	 * @return VerEx
@@ -387,14 +340,7 @@ class VerEx {
 	 */
 	public function withAnyCase($enable = true)
 	{
-		if($enable) {
-			$this->addModifier('i');
-		}
-		else {
-			$this->removeModifier('i');
-		}
-
-		return $this;
+		return $enable ? $this->addModifier('i') : $this->removeModifier('i');
 	}
 
 	/**
@@ -406,16 +352,9 @@ class VerEx {
 	 * @param  boolean $enable Enables or disables g modifier. Default true
 	 * @return VerEx
 	 */
-	public function stopAtFirst($enable = true) 
+	public function stopAtFirst($enable = true)
 	{
-		if($enable) {
-			$this->addModifier('g');
-		}
-		else {
-			$this->removeModifier('g');
-		}
-
-		return $this;
+		return $enable ? $this->addModifier('g') : $this->removeModifier('g');
 	}
 
 	/**
@@ -427,16 +366,9 @@ class VerEx {
 	 * @param  boolean $enable Enables or disables m modifier. Default true
 	 * @return VerEx
 	 */
-	public function searchOneLine($enable = true) 
+	public function searchOneLine($enable = true)
 	{
-		if($enable===true) {
-			$this->addModifier('m');
-		}
-		else {
-			$this->removeModifier('m');
-		}
-
-		return $this;
+		return $enable ? $this->addModifier('m') : $this->removeModifier('m');
 	}
 
 	/**
@@ -448,7 +380,7 @@ class VerEx {
 	 * @param  string $value Your expresion
 	 * @return VerEx
 	 */
-	public function multiple($value) 
+	public function multiple($value)
 	{
 		$value = $this->sanitize($value);
 
@@ -457,15 +389,13 @@ class VerEx {
 			case '+':
 			case '*':
 				break;
-			
+
 			default:
 				$value += '+';
 				break;
 		}
 
-		$this->add($value);
-
-		return $this;
+		return $this->add($value);
 	}
 
 	/**
@@ -504,7 +434,7 @@ class VerEx {
 	 * @access public
 	 * @return string
 	 */
-	public function __toString() 
+	public function __toString()
 	{
 		return $this->getRegex();
 	}
@@ -517,7 +447,7 @@ class VerEx {
 	 * @access public
 	 * @return string The final regex
 	 */
-	public function getRegex() 
+	public function getRegex()
 	{
 		return "/".$this->prefixes.$this->source.$this->suffixes."/".$this->modifiers;
 	}
@@ -545,14 +475,14 @@ class VerEx {
 
 	/**
 	 * Clean
-	 * 
+	 *
 	 * deletes the current regex for a fresh start
 	 *
 	 * @access public
 	 * @param array $options
 	 * @return VerEx
 	 */
-	public function clean($options = array()) 
+	public function clean($options = array())
 	{
 		$options            = array_merge(array("prefixes"=> "", "source"=>"", "suffixes"=>"", "modifiers"=>"gm","replaceLimit"=>"1"), $options);
 		$this->prefixes     = $options['prefixes'];
