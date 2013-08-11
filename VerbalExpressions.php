@@ -57,10 +57,7 @@ class VerEx {
 	 */
 	public function sanitize($value)
 	{
-		if(!$value) {
-			return $value;
-		}
-		return preg_quote($value, "/");
+		return $value ? preg_quote($value, "/") : $value;
 	}
 
 	/**
