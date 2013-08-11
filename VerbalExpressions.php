@@ -116,8 +116,7 @@ class VerEx {
 	 */
 	public function then($value)
 	{
-		$this->add("(".$this->sanitize($value).")");
-		return $this;
+		return $this->add("(".$this->sanitize($value).")");
 	}
 
 	/**
@@ -140,8 +139,7 @@ class VerEx {
 	 */
 	public function maybe($value)
 	{
-		$this->add("(".$this->sanitize($value).")?");
-		return $this;
+		return $this->add("(".$this->sanitize($value).")?");
 	}
 
 	/**
@@ -154,8 +152,7 @@ class VerEx {
 	 */
 	public function anything()
 	{
-		$this->add("(.*)");
-		return $this;
+		return $this->add("(.*)");
 	}
 
 	/**
@@ -169,8 +166,7 @@ class VerEx {
 	 */
 	public function anythingBut($value)
 	{
-		$this->add("([^". $this->sanitize($value) ."]*)");
-		return $this;
+		return $this->add("([^". $this->sanitize($value) ."]*)");
 	}
 
 	/**
@@ -183,8 +179,7 @@ class VerEx {
 	 */
 	public function something()
 	{
-		$this->add("(.+)");
-		return $this;
+		return $this->add("(.+)");
 	}
 
 	/**
@@ -198,8 +193,7 @@ class VerEx {
 	 */
 	public function somethingBut($value)
 	{
-		$this->add("([^". $this->sanitize($value) ."]+)");
-		return $this;
+		return $this->add("([^". $this->sanitize($value) ."]+)");
 	}
 
 	/**
@@ -233,8 +227,7 @@ class VerEx {
 	 */
 	public function lineBreak()
 	{
-		$this->add("(\\n|(\\r\\n))");
-		return $this;
+		return $this->add("(\\n|(\\r\\n))");
 	}
 
 	/**
@@ -260,8 +253,7 @@ class VerEx {
 	 */
 	public function tab()
 	{
-		$this->add("\\t");
-		return $this;
+		return $this->add("\\t");
 	}
 
 	/**
@@ -274,8 +266,7 @@ class VerEx {
 	 */
 	public function word()
 	{
-		$this->add("\\w+");
-		return $this;
+		return $this->add("\\w+");
 	}
 
 	/**
@@ -289,8 +280,7 @@ class VerEx {
 	 */
 	public function anyOf($value)
 	{
-		$this->add("[". $value ."]");
-		return $this;
+		return $this->add("[". $value ."]");
 	}
 
 	/**
@@ -334,9 +324,7 @@ class VerEx {
 
 		$value .= "]";
 
-		$this->add($value);
-
-		return $this;
+		return $this->add($value);
 	}
 
 	/**
@@ -460,9 +448,7 @@ class VerEx {
 				break;
 		}
 
-		$this->add($value);
-
-		return $this;
+		return $this->add($value);
 	}
 
 	/**
