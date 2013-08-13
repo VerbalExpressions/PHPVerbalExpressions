@@ -11,7 +11,7 @@ class VerEx {
 	public $prefixes     = "";
 	public $source       = "";
 	public $suffixes     = "";
-	public $modifiers    = "m"; // default to global multiline matching
+	public $modifiers    = "m"; // default to global multi line matching
 	public $replaceLimit = 1;   // the limit of preg_replace when g modifier is not set
 
 	/**
@@ -268,7 +268,7 @@ class VerEx {
 	/**
 	 * Add a range
 	 *
-	 * Adds a range to our expresion ex: range(a,z) => a-z, range(a,z,0,9) => a-z0-9
+	 * Adds a range to our expression ex: range(a,z) => a-z, range(a,z,0,9) => a-z0-9
 	 *
 	 * @access public
 	 * @return VerEx
@@ -374,10 +374,10 @@ class VerEx {
 	/**
 	 * Multiple
 	 *
-	 * Adds the multiple modifier at the end of your expresion
+	 * Adds the multiple modifier at the end of your expression
 	 *
 	 * @access public
-	 * @param  string $value Your expresion
+	 * @param  string $value Your expression
 	 * @return VerEx
 	 */
 	public function multiple($value)
@@ -401,7 +401,7 @@ class VerEx {
 	/**
 	 * OR
 	 *
-	 * Wraps the current expresion in an `or` with $value
+	 * Wraps the current expression in an `or` with $value
 	 *
 	 * @access public
 	 * @param  string $value new expression
@@ -488,8 +488,8 @@ class VerEx {
 		$this->prefixes     = $options['prefixes'];
 		$this->source       = $options['source'];
 		$this->suffixes     = $options['suffixes'];
-		$this->modifiers    = $options['modifiers'];    // default to global multiline matching
-		$this->replaceLimit = $options['replaceLimit']; // default to global multiline matching
+		$this->modifiers    = $options['modifiers'];    // default to global multi line matching
+		$this->replaceLimit = $options['replaceLimit']; // default to global multi line matching
 
 		return $this;
 	}
