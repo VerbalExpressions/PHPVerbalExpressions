@@ -42,7 +42,7 @@ echo $regex ->clean(array("modifiers"=> "m","replaceLimit"=>4))
 ```
 
 ## Other Implementations
-You can see an up to date list of all ports in our [organization](https://github.com/VerbalExpressions).
+You can see an up to date list of all ports on [VerbalExpressions.github.io](http://VerbalExpressions.github.io).
 - [Javascript](https://github.com/jehna/VerbalExpressions)
 - [Ruby](https://github.com/VerbalExpressions/RubyVerbalExpressions)
 - [C#](https://github.com/VerbalExpressions/CSharpVerbalExpressions)
