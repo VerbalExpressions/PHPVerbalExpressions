@@ -21,7 +21,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @param  string $value the to be added
-	 * @return string        escaped value
+	 * @return string escaped value
 	 */
 	public function sanitize($value)
 	{
@@ -90,6 +90,7 @@ class VerEx {
 	/**
 	 * alias for then()
 	 * @param  string $value The string to be looked for
+	 * @return VerEx
 	 */
 	public function find($value)
 	{
@@ -204,7 +205,7 @@ class VerEx {
 	 * Shorthand for lineBreak
 	 *
 	 * @access public
-	 * return object
+	 * return VerEx
 	 */
 	public function br()
 	{
@@ -272,6 +273,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @return VerEx
+	 * @throws Exception
 	 */
 	public function range()
 	{
@@ -301,7 +303,7 @@ class VerEx {
 	 * Adds a modifier
 	 *
 	 * @access public
-	 * @param str $modifier
+	 * @param string $modifier
 	 * @return VerEx
 	 */
 	public function addModifier($modifier)
@@ -319,7 +321,7 @@ class VerEx {
 	 * Removes a modifier
 	 *
 	 * @access public
-	 * @param str $modifier
+	 * @param string $modifier
 	 * @return VerEx
 	 */
 	public function removeModifier($modifier)
