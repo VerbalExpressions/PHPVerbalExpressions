@@ -8,14 +8,14 @@ VerbalExpressions is a PHP library that helps to construct hard regular expressi
 
 // some tests
 
-$regex = new VerEx;
+$regex = new VerbalExpressions;
 
 $regex 	->startOfLine()
-		->then( "http" )
-		->maybe( "s" )
-		->then( "://" )
-		->maybe( "www." )
-		->anythingBut( " " )
+		->then("http")
+		->maybe("s")
+		->then("://")
+		->maybe("www.")
+		->anythingBut(" ")
 		->endOfLine();
 
 
@@ -35,7 +35,7 @@ echo "<pre>". $regex->getRegex() ."</pre>";
 
 
 
-echo $regex ->clean(array("modifiers"=> "m","replaceLimit"=>4))
+echo $regex ->clean(array("modifiers" => "m", "replaceLimit" => 4))
 			->find(' ')
 			->replace("This is a small test http://somesite.com and some more text.", "-");
 
