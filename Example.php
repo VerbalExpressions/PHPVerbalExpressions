@@ -9,13 +9,13 @@ require_once 'VerbalExpressions.php';
 
 $regex = new VerbalExpressions;
 
-$regex 	->startOfLine()
-        ->then("http")
-        ->maybe("s")
-        ->then("://")
-        ->maybe("www.")
-        ->anythingBut(" ")
-        ->endOfLine();
+$regex->startOfLine()
+      ->then("http")
+      ->maybe("s")
+      ->then("://")
+      ->maybe("www.")
+      ->anythingBut(" ")
+      ->endOfLine();
 
 if($regex->test("http://github.com"))
     echo "valid url". '<br>';
@@ -30,6 +30,6 @@ if (preg_match($regex, 'http://github.com')) {
 
 echo "<pre>". $regex->getRegex() ."</pre>";
 
-echo $regex ->clean(array("modifiers" => "m", "replaceLimit" => 4))
-            ->find(' ')
-            ->replace("This is a small test http://somesite.com and some more text.", "-");
+echo $regex->clean(array("modifiers" => "m", "replaceLimit" => 4))
+           ->find(' ')
+           ->replace("This is a small test http://somesite.com and some more text.", "-");
