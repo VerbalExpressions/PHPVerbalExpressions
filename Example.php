@@ -7,7 +7,7 @@
 
 require_once 'VerbalExpressions.php';
 
-$regex = new VerbalExpressions;
+$regex = new \VerbalExpressions\PHPVerbalExpressions\VerbalExpressions();
 
 $regex->startOfLine()
       ->then("http")
