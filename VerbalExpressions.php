@@ -125,7 +125,7 @@ class VerEx {
 	}
 
 	/**
-	 * Anthing But
+	 * AnythingBut
 	 *
 	 * Anything but this chars
 	 *
@@ -187,7 +187,7 @@ class VerEx {
 	}
 
 	/**
-	 * Linebreak
+	 * Line break
 	 *
 	 * Match line break
 	 *
@@ -200,7 +200,7 @@ class VerEx {
 	}
 
 	/**
-	 * Linebreak
+	 * Line break
 	 *
 	 * Shorthand for lineBreak
 	 *
@@ -226,9 +226,9 @@ class VerEx {
 	}
 
 	/**
-	 * Alpha Numberic
+	 * Alpha Numeric
 	 *
-	 * Match any alfanumeric
+	 * Match any alpha numeric
 	 *
 	 * @access public
 	 * @return VerEx
@@ -273,7 +273,7 @@ class VerEx {
 	 *
 	 * @access public
 	 * @return VerEx
-	 * @throws Exception
+	 * @throws \InvalidArgumentException
 	 */
 	public function range()
 	{
@@ -281,7 +281,7 @@ class VerEx {
 		$arg_num = func_num_args();
 
 		if($arg_num%2 != 0) {
-			throw new Exception("Number of args must be even", 1);
+			throw new \InvalidArgumentException("Number of args must be even", 1);
 		}
 
 		$value = "[";
@@ -360,7 +360,7 @@ class VerEx {
 	}
 
 	/**
-	 * SearchOneline
+	 * SearchOneLine
 	 *
 	 * Toggles m modifier
 	 *
@@ -393,7 +393,7 @@ class VerEx {
 				break;
 
 			default:
-				$value += '+';
+				$value .= '+';
 				break;
 		}
 
