@@ -24,7 +24,7 @@ class VerbalExpressions
      * @param  string $value the to be added
      * @return string escaped value
      */
-    public function sanitize($value)
+    public static function sanitize($value)
     {
         return $value ? preg_quote($value, "/") : $value;
     }
