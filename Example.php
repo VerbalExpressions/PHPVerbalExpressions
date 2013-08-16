@@ -5,7 +5,7 @@
  * 22.July.2013
  */
 
-require_once 'VerbalExpressions.php';
+$loader = require __DIR__ . '/vendor/autoload.php';
 
 $regex = new \VerbalExpressions\PHPVerbalExpressions\VerbalExpressions();
 
