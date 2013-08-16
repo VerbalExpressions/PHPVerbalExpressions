@@ -1,5 +1,5 @@
 {
-    "name": "VerbalExpressions/PHPVerbalExpressions",
+    "name": "verbalexpressions/php-verbal-expressions",
     "license": "MIT",
     "type": "project",
     "description": "PHP Regular expressions made easy",
