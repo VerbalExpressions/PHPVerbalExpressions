@@ -1,6 +1,7 @@
 <?php
 
 namespace VerbalExpressions\PHPVerbalExpressions;
+
 /**
  * Verbal Expressions v0.1 (https://github.com/jehna/VerbalExpressions) ported in PHP
  * @author Mihai Ionut Vilcu (ionutvmi@gmail.com)
@@ -475,7 +476,7 @@ class VerbalExpressions
             return preg_match_all($this->getRegex(), $value);
         }
 
-        return preg_match($this->getRegex(), $value);
+        return (bool) preg_match($this->getRegex(), $value);
     }
 
     /**
