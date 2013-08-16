@@ -476,7 +476,7 @@ class VerbalExpressions
             return preg_match_all($this->getRegex(), $value);
         }
 
-        return preg_match($this->getRegex(), $value);
+        return (bool) preg_match($this->getRegex(), $value);
     }
 
     /**

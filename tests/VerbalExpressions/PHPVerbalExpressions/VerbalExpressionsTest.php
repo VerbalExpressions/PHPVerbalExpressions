@@ -20,7 +20,7 @@ class VerbalExpressionsTest extends \PHPUnit_Framework_TestCase
             ->anythingBut(" ")
             ->endOfLine();
 
-        $this->assertEquals(1, $regex->test($url));
+        $this->assertTrue($regex->test($url));
     }
 
     static public function provideUrls()
