@@ -15,6 +15,7 @@ class VerbalExpressions
     public $suffixes     = "";
     public $modifiers    = "m"; // default to global multi line matching
     public $replaceLimit = 1;   // the limit of preg_replace when g modifier is not set
+    protected $lastAdded = false; // holds the last added regex 
 
     /**
      * Sanitize
@@ -41,7 +42,7 @@ class VerbalExpressions
      */
     public function add($value)
     {
-        $this->source .= $value;
+        $this->source .= $this->lastAdded = $value;
 
         return $this;
     }
@@ -294,7 +295,7 @@ class VerbalExpressions
         $arg_list = func_get_args();
 
         for ($i = 0; $i < $arg_num;) {
-            $value .= $this->sanitize($arg_list[$i++]) . " - " . $this->sanitize($arg_list[$i++]);
+            $value .= $this->sanitize($arg_list[$i++]) . "-" . $this->sanitize($arg_list[$i++]);
         }
 
         $value .= "]";
@@ -498,6 +499,40 @@ class VerbalExpressions
         $this->replaceLimit = $options['replaceLimit']; // default to global multi line matching
 
         return $this;
+    }
+
+    /**
+     * Limit
+     * 
+     * Adds char limit to the last added expression. 
+     * If $max is less then $min the limit will be: At least $min chars {$min,}
+     * If $max is 0 the limit will be: exactly $min chars {$min}
+     * If $max bigger then $min the limit will be: at least $min but not more then $max {$min, $max}
+     * 
+     * @access public
+     * @param integer $min
+     * @param integer $max
+     * @return VerbalExpressions
+     */
+    function limit($min, $max = 0) {
+        if($max == 0)
+            $value = "{".$min."}";
+        
+        else if($max < $min)
+            $value = "{".$min.",}";
+        
+        else
+            $value = "{".$min.",".$max."}";
+
+        // check if the expression has * or + for the last expression
+        if(preg_match("/\*|\+/", $this->lastAdded)) {
+            $l = 1;
+            $this->source = strrev(str_replace(array('+','*'), strrev($value), strrev($this->source), $l));
+            return $this;
+        }
+
+        return $this->add($value);
+            
     }
 
 }
