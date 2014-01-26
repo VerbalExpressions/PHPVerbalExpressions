@@ -514,7 +514,7 @@ class VerbalExpressions
      * @param integer $max
      * @return VerbalExpressions
      */
-    function limit($min, $max = 0) {
+    public function limit($min, $max = 0) {
         if($max == 0)
             $value = "{".$min."}";
         
