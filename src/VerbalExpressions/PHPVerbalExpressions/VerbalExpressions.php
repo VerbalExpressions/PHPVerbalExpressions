@@ -90,7 +90,7 @@ class VerbalExpressions
      */
     public function then($value)
     {
-        return $this->add("(".$this->sanitize($value).")");
+        return $this->add("(".self::sanitize($value).")");
     }
 
     /**
@@ -114,7 +114,7 @@ class VerbalExpressions
      */
     public function maybe($value)
     {
-        return $this->add("(".$this->sanitize($value).")?");
+        return $this->add("(".self::sanitize($value).")?");
     }
 
     /**
@@ -141,7 +141,7 @@ class VerbalExpressions
      */
     public function anythingBut($value)
     {
-        return $this->add("([^". $this->sanitize($value) ."]*)");
+        return $this->add("([^". self::sanitize($value) ."]*)");
     }
 
     /**
@@ -168,7 +168,7 @@ class VerbalExpressions
      */
     public function somethingBut($value)
     {
-        return $this->add("([^". $this->sanitize($value) ."]+)");
+        return $this->add("([^". self::sanitize($value) ."]+)");
     }
 
     /**
@@ -295,7 +295,7 @@ class VerbalExpressions
         $arg_list = func_get_args();
 
         for ($i = 0; $i < $arg_num;) {
-            $value .= $this->sanitize($arg_list[$i++]) . "-" . $this->sanitize($arg_list[$i++]);
+            $value .= self::sanitize($arg_list[$i++]) . "-" . self::sanitize($arg_list[$i++]);
         }
 
         $value .= "]";
@@ -390,7 +390,7 @@ class VerbalExpressions
      */
     public function multiple($value)
     {
-        $value = $this->sanitize($value);
+        $value = self::sanitize($value);
 
         switch (substr($value, -1)) {
             case '+':
