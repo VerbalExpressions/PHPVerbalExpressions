@@ -90,7 +90,7 @@ class VerbalExpressions
      */
     public function then($value)
     {
-        return $this->add("(".self::sanitize($value).")");
+        return $this->add("(?:".self::sanitize($value).")");
     }
 
     /**
@@ -114,7 +114,7 @@ class VerbalExpressions
      */
     public function maybe($value)
     {
-        return $this->add("(".self::sanitize($value).")?");
+        return $this->add("(?:".self::sanitize($value).")?");
     }
 
     /**
@@ -127,7 +127,7 @@ class VerbalExpressions
      */
     public function anything()
     {
-        return $this->add("(.*)");
+        return $this->add("(?:.*)");
     }
 
     /**
@@ -141,7 +141,7 @@ class VerbalExpressions
      */
     public function anythingBut($value)
     {
-        return $this->add("([^". self::sanitize($value) ."]*)");
+        return $this->add("(?:[^". self::sanitize($value) ."]*)");
     }
 
     /**
@@ -154,7 +154,7 @@ class VerbalExpressions
      */
     public function something()
     {
-        return $this->add("(.+)");
+        return $this->add("(?:.+)");
     }
 
     /**
@@ -168,7 +168,7 @@ class VerbalExpressions
      */
     public function somethingBut($value)
     {
-        return $this->add("([^". self::sanitize($value) ."]+)");
+        return $this->add("(?:[^". self::sanitize($value) ."]+)");
     }
 
     /**
@@ -203,7 +203,7 @@ class VerbalExpressions
      */
     public function lineBreak()
     {
-        return $this->add("(\\n|(\\r\\n))");
+        return $this->add("(?:\\n|(\\r\\n))");
     }
 
     /**
@@ -417,14 +417,14 @@ class VerbalExpressions
     public function _or($value)
     {
         if (strpos($this->prefixes,"(")===false) {
-            $this->prefixes .= "(";
+            $this->prefixes .= "(?:";
         }
 
         if (strpos($this->suffixes, ")")===false) {
             $this->suffixes .= ")";
         }
 
-        $this->add(")|(");
+        $this->add(")|(?:");
 
         if ($value) {
             $this->add($value);
