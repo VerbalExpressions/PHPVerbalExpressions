@@ -15,7 +15,7 @@ class VerbalExpressions
     public $suffixes     = "";
     public $modifiers    = "m"; // default to global multi line matching
     public $replaceLimit = 1;   // the limit of preg_replace when g modifier is not set
-    protected $lastAdded = false; // holds the last added regex 
+    protected $lastAdded = false; // holds the last added regex
 
     /**
      * Sanitize
@@ -80,7 +80,7 @@ class VerbalExpressions
     }
 
     /**
-     * Add
+     * Then
      *
      * Add a string to the expression
      *
@@ -90,10 +90,12 @@ class VerbalExpressions
      */
     public function then($value)
     {
-        return $this->add("(?:".self::sanitize($value).")");
+        return $this->add("(?:" . self::sanitize($value) . ")");
     }
 
     /**
+     * Find
+     *
      * alias for then()
      * @param  string $value The string to be looked for
      * @return VerbalExpressions
@@ -106,7 +108,7 @@ class VerbalExpressions
     /**
      * Maybe
      *
-     *  Add a string to the expression that might appear once (or not).
+     * Add a string to the expression that might appear once (or not).
      *
      * @access public
      * @param  string $value The string to be looked for
@@ -114,7 +116,7 @@ class VerbalExpressions
      */
     public function maybe($value)
     {
-        return $this->add("(?:".self::sanitize($value).")?");
+        return $this->add("(?:" . self::sanitize($value) . ")?");
     }
 
     /**
@@ -141,7 +143,7 @@ class VerbalExpressions
      */
     public function anythingBut($value)
     {
-        return $this->add("(?:[^". self::sanitize($value) ."]*)");
+        return $this->add("(?:[^" . self::sanitize($value) . "]*)");
     }
 
     /**
@@ -168,7 +170,7 @@ class VerbalExpressions
      */
     public function somethingBut($value)
     {
-        return $this->add("(?:[^". self::sanitize($value) ."]+)");
+        return $this->add("(?:[^" . self::sanitize($value) . "]+)");
     }
 
     /**
@@ -212,7 +214,7 @@ class VerbalExpressions
      * Shorthand for lineBreak
      *
      * @access public
-     * return VerbalExpressions
+     * @return VerbalExpressions
      */
     public function br()
     {
@@ -256,7 +258,7 @@ class VerbalExpressions
      */
     public function anyOf($value)
     {
-        return $this->add("[". $value ."]");
+        return $this->add("[" . $value . "]");
     }
 
     /**
@@ -396,7 +398,6 @@ class VerbalExpressions
             case '+':
             case '*':
                 break;
-
             default:
                 $value .= '+';
                 break;
@@ -409,6 +410,7 @@ class VerbalExpressions
      * OR
      *
      * Wraps the current expression in an `or` with $value
+     * Notice: OR is a reserved keyword in PHP, so this method is prefixed with "_"
      *
      * @access public
      * @param  string $value new expression
@@ -416,11 +418,11 @@ class VerbalExpressions
      */
     public function _or($value)
     {
-        if (strpos($this->prefixes,"(")===false) {
+        if (strpos($this->prefixes, "(") === false) {
             $this->prefixes .= "(?:";
         }
 
-        if (strpos($this->suffixes, ")")===false) {
+        if (strpos($this->suffixes, ")") === false) {
             $this->suffixes .= ")";
         }
 
@@ -456,7 +458,7 @@ class VerbalExpressions
      */
     public function getRegex()
     {
-        return "/".$this->prefixes.$this->source.$this->suffixes."/".$this->modifiers;
+        return "/" . $this->prefixes . $this->source . $this->suffixes . "/" . $this->modifiers;
     }
 
     /**
@@ -489,9 +491,9 @@ class VerbalExpressions
      * @param  array $options
      * @return VerbalExpressions
      */
-    public function clean($options = array())
+    public function clean(array $options = array())
     {
-        $options            = array_merge(array("prefixes"=> "", "source"=>"", "suffixes"=>"", "modifiers"=>"gm","replaceLimit"=>"1"), $options);
+        $options            = array_merge(array("prefixes"=> "", "source"=>"", "suffixes"=>"", "modifiers"=>"gm", "replaceLimit"=>"1"), $options);
         $this->prefixes     = $options['prefixes'];
         $this->source       = $options['source'];
         $this->suffixes     = $options['suffixes'];
@@ -503,36 +505,35 @@ class VerbalExpressions
 
     /**
      * Limit
-     * 
-     * Adds char limit to the last added expression. 
+     *
+     * Adds char limit to the last added expression.
      * If $max is less then $min the limit will be: At least $min chars {$min,}
      * If $max is 0 the limit will be: exactly $min chars {$min}
      * If $max bigger then $min the limit will be: at least $min but not more then $max {$min, $max}
-     * 
+     *
      * @access public
      * @param integer $min
      * @param integer $max
      * @return VerbalExpressions
      */
-    public function limit($min, $max = 0) {
-        if($max == 0)
-            $value = "{".$min."}";
-        
-        else if($max < $min)
-            $value = "{".$min.",}";
-        
-        else
-            $value = "{".$min.",".$max."}";
+    public function limit($min, $max = 0)
+    {
+        if ($max == 0) {
+            $value = "{" . $min . "}";
+        } elseif ($max < $min) {
+            $value = "{" . $min . ",}";
+        } else {
+            $value = "{" . $min . "," . $max . "}";
+        }
 
         // check if the expression has * or + for the last expression
-        if(preg_match("/\*|\+/", $this->lastAdded)) {
+        if (preg_match("/\*|\+/", $this->lastAdded)) {
             $l = 1;
             $this->source = strrev(str_replace(array('+','*'), strrev($value), strrev($this->source), $l));
+
             return $this;
         }
 
         return $this->add($value);
-            
     }
-
 }
