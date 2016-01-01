@@ -22,7 +22,7 @@ class VerbalExpressionsTest extends \PHPUnit_Framework_TestCase
             array('http://github.com'),
             array('http://www.github.com'),
             array('https://github.com'),
-            array('https://github.com'),
+            array('https://www.github.com'),
             array('https://github.com/blog'),
             array('https://foobar.github.com')
         );
