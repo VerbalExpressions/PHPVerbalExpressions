@@ -27,7 +27,7 @@ else
 if (preg_match($regex, 'http://github.com')) {
     echo 'valid url';
 } else {
-    echo 'invalud url';
+    echo 'invalid url';
 }
 
 
