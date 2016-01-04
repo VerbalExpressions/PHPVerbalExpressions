@@ -1,5 +1,5 @@
 ##PHPVerbalExpressions 
-- ported from [VerbalExpressions](https://github.com/jehna/VerbalExpressions)
+- ported from [VerbalExpressions](https://github.com/VerbalExpressions/JSVerbalExpressions)
 
 VerbalExpressions is a PHP library that helps to construct hard regular expressions.  
 
@@ -19,7 +19,7 @@ $regex  ->startOfLine()
         ->endOfLine();
 
 
-if($regex->test("http://github.com"))
+if($regex->test("https://github.com/"))
     echo "valid url";
 else
     echo "invalid url";
@@ -51,7 +51,7 @@ You can see an up to date list of all ports on [VerbalExpressions.github.io](htt
 - [C++](https://github.com/VerbalExpressions/CppVerbalExpressions)
 
 ## Building the project and running the tests
-The project supports Composer so you have to install [Composer](http://getcomposer.org/doc/00-intro.md#installation-nix) first before project setup.
+The project supports Composer so you have to install [Composer](https://getcomposer.org/doc/00-intro.md#installation-nix) first before project setup.
 
     curl -sS https://getcomposer.org/installer | php
     php composer.phar install --dev
