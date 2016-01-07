@@ -2,7 +2,7 @@
 
 use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
 
-class VerbalExpressionsTest extends \PHPUnit_Framework_TestCase
+class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider provideValidUrls
