@@ -10,10 +10,10 @@ namespace VerbalExpressions\PHPVerbalExpressions;
 
 class VerbalExpressions
 {
-    public $prefixes     = "";
-    public $source       = "";
-    public $suffixes     = "";
-    public $modifiers    = "m"; // default to global multi line matching
+    public $prefixes     = '';
+    public $source       = '';
+    public $suffixes     = '';
+    public $modifiers    = 'm'; // default to global multi line matching
     public $replaceLimit = 1;   // the limit of preg_replace when g modifier is not set
     protected $lastAdded = false; // holds the last added regex
 
@@ -28,7 +28,7 @@ class VerbalExpressions
      */
     public static function sanitize($value)
     {
-        return $value ? preg_quote($value, "/") : $value;
+        return $value ? preg_quote($value, '/') : $value;
     }
 
     /**
@@ -58,7 +58,7 @@ class VerbalExpressions
      */
     public function startOfLine($enable = true)
     {
-        $this->prefixes = $enable ? "^" : "";
+        $this->prefixes = $enable ? '^' : '';
 
         return $this;
     }
@@ -74,7 +74,7 @@ class VerbalExpressions
      */
     public function endOfLine($enable = true)
     {
-        $this->suffixes = $enable ? "$" : "";
+        $this->suffixes = $enable ? '$' : '';
 
         return $this;
     }
@@ -90,7 +90,7 @@ class VerbalExpressions
      */
     public function then($value)
     {
-        return $this->add("(?:" . self::sanitize($value) . ")");
+        return $this->add('(?:' . self::sanitize($value) . ')');
     }
 
     /**
@@ -116,7 +116,7 @@ class VerbalExpressions
      */
     public function maybe($value)
     {
-        return $this->add("(?:" . self::sanitize($value) . ")?");
+        return $this->add('(?:' . self::sanitize($value) . ')?');
     }
 
     /**
@@ -129,7 +129,7 @@ class VerbalExpressions
      */
     public function anything()
     {
-        return $this->add("(?:.*)");
+        return $this->add('(?:.*)');
     }
 
     /**
@@ -143,7 +143,7 @@ class VerbalExpressions
      */
     public function anythingBut($value)
     {
-        return $this->add("(?:[^" . self::sanitize($value) . "]*)");
+        return $this->add('(?:[^' . self::sanitize($value) . ']*)');
     }
 
     /**
@@ -156,7 +156,7 @@ class VerbalExpressions
      */
     public function something()
     {
-        return $this->add("(?:.+)");
+        return $this->add('(?:.+)');
     }
 
     /**
@@ -170,7 +170,7 @@ class VerbalExpressions
      */
     public function somethingBut($value)
     {
-        return $this->add("(?:[^" . self::sanitize($value) . "]+)");
+        return $this->add('(?:[^' . self::sanitize($value) . ']+)');
     }
 
     /**
@@ -205,7 +205,7 @@ class VerbalExpressions
      */
     public function lineBreak()
     {
-        return $this->add("(?:\\n|(\\r\\n))");
+        return $this->add('(?:\\n|(\\r\\n))');
     }
 
     /**
@@ -231,7 +231,7 @@ class VerbalExpressions
      */
     public function tab()
     {
-        return $this->add("\\t");
+        return $this->add('\\t');
     }
 
     /**
@@ -244,7 +244,7 @@ class VerbalExpressions
      */
     public function word()
     {
-        return $this->add("\\w+");
+        return $this->add('\\w+');
     }
 
     /**
@@ -258,7 +258,7 @@ class VerbalExpressions
      */
     public function anyOf($value)
     {
-        return $this->add("[" . $value . "]");
+        return $this->add('[' . $value . ']');
     }
 
     /**
@@ -290,17 +290,17 @@ class VerbalExpressions
         $arg_num = func_num_args();
 
         if ($arg_num%2 != 0) {
-            throw new \InvalidArgumentException("Number of args must be even", 1);
+            throw new \InvalidArgumentException('Number of args must be even', 1);
         }
 
-        $value = "[";
+        $value = '[';
         $arg_list = func_get_args();
 
         for ($i = 0; $i < $arg_num;) {
-            $value .= self::sanitize($arg_list[$i++]) . "-" . self::sanitize($arg_list[$i++]);
+            $value .= self::sanitize($arg_list[$i++]) . '-' . self::sanitize($arg_list[$i++]);
         }
 
-        $value .= "]";
+        $value .= ']';
 
         return $this->add($value);
     }
@@ -418,15 +418,15 @@ class VerbalExpressions
      */
     public function _or($value)
     {
-        if (strpos($this->prefixes, "(") === false) {
-            $this->prefixes .= "(?:";
+        if (strpos($this->prefixes, '(') === false) {
+            $this->prefixes .= '(?:';
         }
 
-        if (strpos($this->suffixes, ")") === false) {
-            $this->suffixes .= ")";
+        if (strpos($this->suffixes, ')') === false) {
+            $this->suffixes .= ')';
         }
 
-        $this->add(")|(?:");
+        $this->add(')|(?:');
 
         if ($value) {
             $this->add($value);
@@ -458,7 +458,7 @@ class VerbalExpressions
      */
     public function getRegex()
     {
-        return "/" . $this->prefixes . $this->source . $this->suffixes . "/" . $this->modifiers;
+        return '/' . $this->prefixes . $this->source . $this->suffixes . '/' . $this->modifiers;
     }
 
     /**
@@ -493,7 +493,16 @@ class VerbalExpressions
      */
     public function clean(array $options = array())
     {
-        $options            = array_merge(array("prefixes"=> "", "source"=>"", "suffixes"=>"", "modifiers"=>"gm", "replaceLimit"=>"1"), $options);
+        $options            = array_merge(
+            array(
+                'prefixes'      => '', 
+                'source'        => '', 
+                'suffixes'      => '', 
+                'modifiers'     => 'gm', 
+                'replaceLimit'  => '1'
+            ), 
+            $options
+        );
         $this->prefixes     = $options['prefixes'];
         $this->source       = $options['source'];
         $this->suffixes     = $options['suffixes'];
@@ -519,15 +528,15 @@ class VerbalExpressions
     public function limit($min, $max = 0)
     {
         if ($max == 0) {
-            $value = "{" . $min . "}";
+            $value = '{' . $min . '}';
         } elseif ($max < $min) {
-            $value = "{" . $min . ",}";
+            $value = '{' . $min . ',}';
         } else {
-            $value = "{" . $min . "," . $max . "}";
+            $value = '{' . $min . ',' . $max . '}';
         }
 
         // check if the expression has * or + for the last expression
-        if (preg_match("/\*|\+/", $this->lastAdded)) {
+        if (preg_match('/\*|\+/', $this->lastAdded)) {
             $l = 1;
             $this->source = strrev(str_replace(array('+','*'), strrev($value), strrev($this->source), $l));
 
