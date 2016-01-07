@@ -79,6 +79,23 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
             ->endOfLine();
     }
 
+
+    public function testTest(){
+        $regex = new VerbalExpressions();
+        $regex->find('regex');
+
+        $this->assertTrue($regex->test('testing regex string'));
+        $this->assertFalse($regex->test('testing string'));
+
+        $regex->stopAtFirst();
+
+        $this->assertEquals(1, $regex->test('testing regex string'));
+        $this->assertFalse($regex->test('testing string'));
+    }
+
+    /**
+    * @depends testTest
+    */
     public function testThenAfterStartOfLine()
     {
         $regex = new VerbalExpressions();
@@ -264,5 +281,175 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($regex->test('b'));
         $this->assertFalse($regex->test(''));
         $this->assertFalse($regex->test(' '));
+    }
+
+
+    public function testGetRegex(){
+        $regex = new VerbalExpressions();
+        $regex->startOfLine()
+            ->range(0, 9, 'a', 'z', 'A', 'Z')
+            ->multiple('');
+
+        $this->assertEquals('/^[0-9a-zA-Z]+/m', $regex->getRegex());
+        $this->assertEquals('/^[0-9a-zA-Z]+/m', $regex->__toString());
+        $this->assertEquals('/^[0-9a-zA-Z]+/m', (string)$regex);
+        $this->assertEquals('/^[0-9a-zA-Z]+/m', $regex . '');
+    }
+
+    /**
+    * @depends testGetRegex
+    */
+    public function testGetRegex_multiple(){
+        $regex = new VerbalExpressions();
+        $regex->startOfLine()
+            ->multiple('regex');
+
+        $this->assertEquals('/^regex+/m', $regex->getRegex());
+    }
+
+    /**
+    * @expectedException InvalidArgumentException
+    */
+    public function testRange_throwsException(){
+      $regex = new VerbalExpressions();
+      $regex->range(1, 2, 3);
+    }
+
+    /**
+    * @depends testGetRegex
+    */
+    public function testRange_lowercase()
+    {
+        $lowercaseAlpha = new VerbalExpressions();
+        $lowercaseAlpha->range('a', 'z')
+            ->multiple('');
+
+        $lowercaseAlpha_all = new VerbalExpressions();
+        $lowercaseAlpha_all->startOfLine()
+            ->range('a', 'z')
+            ->multiple('')
+            ->endOfLine();
+
+        $this->assertEquals('/[a-z]+/m', $lowercaseAlpha->getRegex());
+        $this->assertEquals('/^[a-z]+$/m', $lowercaseAlpha_all->getRegex());
+
+        $this->assertTrue($lowercaseAlpha->test('a'));
+        $this->assertFalse($lowercaseAlpha->test('A'));
+        $this->assertTrue($lowercaseAlpha->test('alphabet'));
+        $this->assertTrue($lowercaseAlpha->test('Alphabet'));
+        $this->assertFalse($lowercaseAlpha_all->test('Alphabet'));
+    }
+
+    /**
+    * @depends testGetRegex
+    */
+    public function testRange_uppercase()
+    {
+        $uppercaseAlpha = new VerbalExpressions();
+        $uppercaseAlpha->range('A', 'Z')
+            ->multiple('');
+
+        $uppercaseAlpha_all = new VerbalExpressions();
+        $uppercaseAlpha_all->startOfLine()
+            ->range('A', 'Z')
+            ->multiple('')
+            ->endOfLine();
+
+        $this->assertEquals('/[A-Z]+/m', $uppercaseAlpha->getRegex());
+        $this->assertEquals('/^[A-Z]+$/m', $uppercaseAlpha_all->getRegex());
+
+        $this->assertTrue($uppercaseAlpha->test('A'));
+        $this->assertFalse($uppercaseAlpha->test('a'));
+        $this->assertFalse($uppercaseAlpha->test('alphabet'));
+        $this->assertTrue($uppercaseAlpha->test('Alphabet'));
+        $this->assertTrue($uppercaseAlpha->test('ALPHABET'));
+        $this->assertFalse($uppercaseAlpha_all->test('Alphabet'));
+        $this->assertTrue($uppercaseAlpha_all->test('ALPHABET'));
+    }
+
+    /**
+    * @depends testGetRegex
+    */
+    public function testRange_numerical()
+    {
+        $zeroToNine = new VerbalExpressions();
+        $zeroToNine->range(0, 9)
+            ->multiple('');
+
+        $zeroToNine_all = new VerbalExpressions();
+        $zeroToNine_all->startOfLine()
+            ->range(0, 9)
+            ->multiple('')
+            ->endOfLine();
+
+        $this->assertEquals('/[0-9]+/m', $zeroToNine->getRegex());
+        $this->assertEquals('/^[0-9]+$/m', $zeroToNine_all->getRegex());
+
+        $this->assertFalse($zeroToNine->test('alphabet'));
+        $this->assertTrue($zeroToNine->test(0));
+        $this->assertTrue($zeroToNine->test('0'));
+        $this->assertTrue($zeroToNine->test(123));
+        $this->assertTrue($zeroToNine->test('123'));
+        $this->assertTrue($zeroToNine->test(1.23));
+        $this->assertTrue($zeroToNine->test('1.23'));
+        $this->assertFalse($zeroToNine_all->test(1.23));
+        $this->assertFalse($zeroToNine_all->test('1.23'));
+        $this->assertTrue($zeroToNine->test('£123'));
+        $this->assertFalse($zeroToNine_all->test('£123'));
+    }
+
+    /**
+    * @depends testGetRegex
+    */
+    public function testRange_hexadecimal()
+    {
+        $hexadecimal = new VerbalExpressions();
+        $hexadecimal->startOfLine()
+            ->range(0, 9, 'a', 'f')
+            ->multiple('')
+            ->endOfLine();
+
+        $this->assertEquals('/^[0-9a-f]+$/m', $hexadecimal->getRegex());
+
+        $this->assertFalse($hexadecimal->test('alphabet'));
+        $this->assertTrue($hexadecimal->test('deadbeef'));
+        $this->assertTrue($hexadecimal->test(md5('')));
+        $this->assertTrue($hexadecimal->test(sha1('')));
+    }
+
+    /**
+    * @depends testRange_hexadecimal
+    */
+    public function testRange_md5(){
+        $md5 = new VerbalExpressions();
+        $md5->startOfLine()
+            ->range(0, 9, 'a', 'f')
+            ->limit(32)
+            ->endOfLine();
+
+        $this->assertEquals('/^[0-9a-f]{32}$/m', $md5->getRegex());
+
+        $this->assertFalse($md5->test('alphabet'));
+        $this->assertFalse($md5->test('deadbeef'));
+        $this->assertTrue($md5->test(md5('')));
+        $this->assertFalse($md5->test(sha1('')));
+    }
+
+    /*
+    * @depends testRange_hexadecimal
+    */
+    public function testRange_sha1(){
+        $sha1 = new VerbalExpressions();
+        $sha1->startOfLine()
+            ->range(0, 9, 'a', 'f')
+            ->limit(40)
+            ->endOfLine();
+
+        $this->assertEquals('/^[0-9a-f]{40}$/m', $sha1->getRegex());
+
+        $this->assertFalse($sha1->test('alphabet'));
+        $this->assertFalse($sha1->test('deadbeef'));
+        $this->assertFalse($sha1->test(md5('')));
+        $this->assertTrue($sha1->test(sha1('')));
     }
 }
