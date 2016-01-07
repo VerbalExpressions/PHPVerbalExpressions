@@ -14,6 +14,12 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
         $this->buildUrlPattern($regex);
 
         $this->assertTrue($regex->test($url));
+
+
+        $regex = new VerbalExpressions();
+        $this->buildUrlPatternAliased($regex);
+
+        $this->assertTrue($regex->test($url));
     }
 
     public static function provideValidUrls()
@@ -57,6 +63,17 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
             ->then("http")
             ->maybe("s")
             ->then("://")
+            ->maybe("www.")
+            ->anythingBut(" ")
+            ->endOfLine();
+    }
+
+    protected function buildUrlPatternAliased(VerbalExpressions $regex)
+    {
+        return $regex->startOfLine()
+            ->find("http")
+            ->maybe("s")
+            ->find("://")
             ->maybe("www.")
             ->anythingBut(" ")
             ->endOfLine();
@@ -165,6 +182,19 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($regex->test(''));
     }
 
+    public function testBr()
+    {
+        $regex = new VerbalExpressions();
+        $regex->startOfLine()
+            ->something()
+            ->br()
+            ->something()
+            ->endOfLine();
+
+        $this->assertTrue($regex->test("foo\nbar"));
+        $this->assertFalse($regex->test("foo bar"));
+    }
+
     public function testLineBreak()
     {
         $regex = new VerbalExpressions();
@@ -204,6 +234,21 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($regex->test('a-b'));
         $this->assertFalse($regex->test('a b'));
         $this->assertFalse($regex->test('a!b'));
+    }
+
+    public function testAny()
+    {
+        $regex = new VerbalExpressions();
+        $regex->startOfLine()
+            ->any('a1M')
+            ->endOfLine();
+
+        $this->assertTrue($regex->test('a'));
+        $this->assertTrue($regex->test('1'));
+        $this->assertTrue($regex->test('M'));
+        $this->assertFalse($regex->test('b'));
+        $this->assertFalse($regex->test(''));
+        $this->assertFalse($regex->test(' '));
     }
 
     public function testAnyOf()
