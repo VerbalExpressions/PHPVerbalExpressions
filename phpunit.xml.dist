@@ -23,4 +23,19 @@
             <directory>./src</directory>
         </whitelist>
     </filter>
+
+
+    <logging>
+        <log
+            type="coverage-html"
+            target="phpunit"
+            logIncompleteSkipped="true"
+        />
+        <log
+            type="coverage-text"
+            target="php://stdout"
+            showUncoveredFiles="true"
+            showOnlySummary="false"
+        />
+    </logging>
 </phpunit>
