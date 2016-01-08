@@ -298,7 +298,6 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
 
     /**
     * @depends testGetRegex
-    * @todo Refactor VerbalExpressions::multiple() for 100% coverage
     */
     public function testGetRegex_multiple(){
         $regex = new VerbalExpressions();

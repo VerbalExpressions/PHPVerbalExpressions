@@ -394,13 +394,10 @@ class VerbalExpressions
     {
         $value = self::sanitize($value);
 
-        switch (substr($value, -1)) {
-            case '+':
-            case '*':
-                break;
-            default:
+        $last = substr($value, -1);
+
+        if($last !== '+' && $last !== '*'){
                 $value .= '+';
-                break;
         }
 
         return $this->add($value);
