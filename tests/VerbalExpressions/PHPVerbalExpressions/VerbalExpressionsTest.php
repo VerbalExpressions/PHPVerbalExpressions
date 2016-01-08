@@ -298,6 +298,7 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
 
     /**
     * @depends testGetRegex
+    * @todo Refactor VerbalExpressions::multiple() for 100% coverage
     */
     public function testGetRegex_multiple(){
         $regex = new VerbalExpressions();
@@ -451,5 +452,114 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($sha1->test('deadbeef'));
         $this->assertFalse($sha1->test(md5('')));
         $this->assertTrue($sha1->test(sha1('')));
+    }
+
+    /**
+    * @depends testGetRegex
+    */
+    public function testRemoveModifier(){
+        $regex = new VerbalExpressions();
+        $regex->range('a', 'z');
+
+        $this->assertEquals('/[a-z]/m', $regex->getRegex());
+
+        $regex->removeModifier('m');
+
+        $this->assertEquals('/[a-z]/', $regex->getRegex());
+    }
+
+    /**
+    * @depends testRemoveModifier
+    */
+    public function testWithAnyCase(){
+        $regex = new VerbalExpressions();
+        $regex->range('a', 'z')
+            ->searchOneLine(false)
+            ->withAnyCase();
+
+        $this->assertEquals('/[a-z]/i', $regex->getRegex());
+
+        $regex->withAnyCase(false);
+
+        $this->assertEquals('/[a-z]/', $regex->getRegex());
+    }
+
+    /**
+    * @depends testGetRegex
+    */
+    public function testOr(){
+        $regex = new VerbalExpressions();
+        $regex->find('foo')
+            ->_or('bar');
+
+        $this->assertTrue($regex->test('foo'));
+        $this->assertTrue($regex->test('bar'));
+        $this->assertFalse($regex->test('baz'));
+        $this->assertTrue($regex->test('food'));
+
+        $this->assertEquals('/(?:(?:foo))|(?:bar)/m', $regex->getRegex());
+    }
+
+    /**
+    * @depends testGetRegex
+    * @todo fix VerbalExpressions::clean() so it matches initial state
+    */
+    public function testClean(){
+        $regex = new VerbalExpressions();
+        $regex->removeModifier('m')
+            ->stopAtFirst()
+            ->searchOneLine();
+
+        $regex_at_start = $regex->getRegex();
+        $regex->find('something')
+            ->add('else')
+            ->_or('another');
+
+        $this->assertNotEquals($regex_at_start, $regex->getRegex());
+
+        $regex->clean();
+
+        $this->assertEquals($regex_at_start, $regex->getRegex());
+    }
+
+    /**
+    * @depends testGetRegex
+    */
+    public function testLimit(){
+        $regex = new VerbalExpressions();
+
+        $regex->add('a')
+            ->limit(1);
+        $this->assertEquals('/a{1}/m', $regex->getRegex());
+
+        $regex->add('b')
+            ->limit(2, 1);
+        $this->assertEquals('/a{1}b{2,}/m', $regex->getRegex());
+
+        $regex->add('c')
+            ->limit(3, 4);
+        $this->assertEquals('/a{1}b{2,}c{3,4}/m', $regex->getRegex());
+
+        $regex->multiple('d');
+        $this->assertEquals('/a{1}b{2,}c{3,4}d+/m', $regex->getRegex());
+
+        $regex->limit(5, 6);
+        $this->assertEquals('/a{1}b{2,}c{3,4}d{5,6}/m', $regex->getRegex());
+    }
+
+    /**
+    * @depends testGetRegex
+    */
+    public function testReplace(){
+        $regex = new VerbalExpressions();
+        $regex->add('foo');
+
+        $this->assertEquals('/foo/m', $regex->getRegex());
+        $this->assertEquals('bazbarfoo', $regex->replace('foobarfoo', 'baz'));
+
+        $regex->stopAtFirst();
+
+        $this->assertEquals('/foo/mg', $regex->getRegex());
+        $this->assertEquals('bazbarbaz', $regex->replace('foobarfoo', 'baz'));
     }
 }
