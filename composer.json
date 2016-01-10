@@ -8,6 +8,9 @@
     "require-dev": {
         "phpunit/phpunit": "^5.1"
     },
+    "suggest": {
+        "fabpot/php-cs-fixer": "PHP CS Fixer (testing for PSR-2 compliance)"
+    },
     "minimum-stability": "stable",
     "autoload": {
         "psr-0": {
