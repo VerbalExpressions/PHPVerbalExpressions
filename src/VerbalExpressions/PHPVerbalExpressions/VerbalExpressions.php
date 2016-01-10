@@ -286,7 +286,6 @@ class VerbalExpressions
      */
     public function range()
     {
-
         $arg_num = func_num_args();
 
         if ($arg_num%2 != 0) {
@@ -394,13 +393,10 @@ class VerbalExpressions
     {
         $value = self::sanitize($value);
 
-        switch (substr($value, -1)) {
-            case '+':
-            case '*':
-                break;
-            default:
-                $value .= '+';
-                break;
+        $last = substr($value, -1);
+
+        if ($last !== '+' && $last !== '*') {
+            $value .= '+';
         }
 
         return $this->add($value);
@@ -538,7 +534,7 @@ class VerbalExpressions
         // check if the expression has * or + for the last expression
         if (preg_match('/\*|\+/', $this->lastAdded)) {
             $l = 1;
-            $this->source = strrev(str_replace(array('+','*'), strrev($value), strrev($this->source), $l));
+            $this->source = strrev(str_replace(array('+', '*'), strrev($value), strrev($this->source), $l));
 
             return $this;
         }
