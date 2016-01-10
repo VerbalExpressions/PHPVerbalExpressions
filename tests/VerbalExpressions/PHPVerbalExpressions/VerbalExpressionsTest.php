@@ -574,7 +574,7 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bazbarbaz', $regex->replace('foobarfoo', 'baz'));
     }
 
-
+    /*
     public function testPsr2()
     {
         $pathToRoot = dirname(dirname(dirname(__DIR__)));
@@ -624,4 +624,5 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
             );
         }
     }
+    */
 }
