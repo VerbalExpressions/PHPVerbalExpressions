@@ -80,7 +80,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testTest(){
+    public function testTest()
+    {
         $regex = new VerbalExpressions();
         $regex->find('regex');
 
@@ -284,7 +285,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testGetRegex(){
+    public function testGetRegex()
+    {
         $regex = new VerbalExpressions();
         $regex->startOfLine()
             ->range(0, 9, 'a', 'z', 'A', 'Z')
@@ -299,7 +301,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testGetRegex_multiple(){
+    public function testGetRegex_multiple()
+    {
         $regex = new VerbalExpressions();
         $regex->startOfLine()
             ->multiple('regex');
@@ -310,9 +313,10 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @expectedException InvalidArgumentException
     */
-    public function testRange_throwsException(){
-      $regex = new VerbalExpressions();
-      $regex->range(1, 2, 3);
+    public function testRange_throwsException()
+    {
+        $regex = new VerbalExpressions();
+        $regex->range(1, 2, 3);
     }
 
     /**
@@ -420,7 +424,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testRange_hexadecimal
     */
-    public function testRange_md5(){
+    public function testRange_md5()
+    {
         $md5 = new VerbalExpressions();
         $md5->startOfLine()
             ->range(0, 9, 'a', 'f')
@@ -438,7 +443,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /*
     * @depends testRange_hexadecimal
     */
-    public function testRange_sha1(){
+    public function testRange_sha1()
+    {
         $sha1 = new VerbalExpressions();
         $sha1->startOfLine()
             ->range(0, 9, 'a', 'f')
@@ -456,7 +462,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testRemoveModifier(){
+    public function testRemoveModifier()
+    {
         $regex = new VerbalExpressions();
         $regex->range('a', 'z');
 
@@ -470,7 +477,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testRemoveModifier
     */
-    public function testWithAnyCase(){
+    public function testWithAnyCase()
+    {
         $regex = new VerbalExpressions();
         $regex->range('a', 'z')
             ->searchOneLine(false)
@@ -486,7 +494,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testOr(){
+    public function testOr()
+    {
         $regex = new VerbalExpressions();
         $regex->find('foo')
             ->_or('bar');
@@ -503,7 +512,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     * @depends testGetRegex
     * @todo fix VerbalExpressions::clean() so it matches initial state
     */
-    public function testClean(){
+    public function testClean()
+    {
         $regex = new VerbalExpressions();
         $regex->removeModifier('m')
             ->stopAtFirst()
@@ -524,7 +534,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testLimit(){
+    public function testLimit()
+    {
         $regex = new VerbalExpressions();
 
         $regex->add('a')
@@ -549,7 +560,8 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testReplace(){
+    public function testReplace()
+    {
         $regex = new VerbalExpressions();
         $regex->add('foo');
 
@@ -563,38 +575,39 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testPsr2(){
+    public function testPsr2()
+    {
         $pathToRoot = dirname(dirname(dirname(__DIR__)));
         $pathToVendor = $pathToRoot . '/vendor';
         $pathToSrc = $pathToRoot . '/src';
         $pathToTests = $pathToRoot . '/tests';
 
-        if(
+        if (
             !is_dir($pathToVendor)
-        ){
+        ) {
             $this->markTestSkipped('Vendor directory not found.');
             return;
-        }else if(
+        } elseif (
             !is_dir($pathToSrc)
-        ){
+        ) {
             $this->markTestSkipped('Source directory not found.');
             return;
-        }else if(
+        } elseif (
             !is_dir($pathToTests)
-        ){
+        ) {
             $this->markTestSkipped('Tests directory not found.');
             return;
         }
 
-        foreach(array(
+        foreach (array(
             $pathToTests,
             $pathToSrc,
-        ) as $dirToCheck){
+        ) as $dirToCheck) {
             $cmd = escapeshellcmd(
                 'php-cs-fixer fix --level=psr2 --dry-run ' . $dirToCheck
             );
             exec($cmd, $output, $return_var);
-            if($output){
+            if ($output) {
                 array_pop($output);
                 $output = array_map('trim', $output);
             }
