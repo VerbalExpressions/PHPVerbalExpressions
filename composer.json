@@ -4,6 +4,7 @@
     "type": "project",
     "description": "PHP Regular expressions made easy",
     "require": {
+        "php": ">=5.3",
         "fabpot/php-cs-fixer": "^1.11"
     },
     "require-dev": {
