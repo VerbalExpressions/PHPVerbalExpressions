@@ -560,8 +560,7 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testReplace()
-    {
+    public function testReplace() {
         $regex = new VerbalExpressions();
         $regex->add('foo');
 
