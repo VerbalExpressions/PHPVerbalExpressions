@@ -491,12 +491,12 @@ class VerbalExpressions
     {
         $options            = array_merge(
             array(
-                'prefixes'      => '', 
-                'source'        => '', 
-                'suffixes'      => '', 
-                'modifiers'     => 'gm', 
+                'prefixes'      => '',
+                'source'        => '',
+                'suffixes'      => '',
+                'modifiers'     => 'gm',
                 'replaceLimit'  => '1'
-            ), 
+            ),
             $options
         );
         $this->prefixes     = $options['prefixes'];
