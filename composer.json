@@ -15,8 +15,8 @@
     },
     "minimum-stability": "stable",
     "autoload": {
-        "psr-0": {
-            "VerbalExpressions": "src/"
+        "psr-4": {
+            "VerbalExpressions\\PHPVerbalExpressions\\": "src/"
         }
     }
 }
