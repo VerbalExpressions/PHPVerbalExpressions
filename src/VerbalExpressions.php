@@ -248,6 +248,19 @@ class VerbalExpressions
     }
 
     /**
+     * Digit
+     *
+     * Match any digit
+     *
+     * @access public
+     * @return VerbalExpressions
+     */
+    public function digit()
+    {
+        return $this->add('\\d');
+    }
+    
+    /**
      * List Chars
      *
      * Any of the listed chars
