@@ -11,4 +11,4 @@ before_script:
   - composer install
 script:
   - vendor/bin/php-cs-fixer fix --level=psr2 --dry-run src
-  - vendor/bin/php-cs-fixer fix --level=psr2 --dry-run tests
+  - vendor/bin/php-cs-fixer fix --level=psr2 --dry-run tests/VerbalExpressionsTest.php
