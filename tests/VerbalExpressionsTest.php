@@ -254,6 +254,19 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($regex->test('a!b'));
     }
 
+
+    public function testDigit()
+    {
+        $regex = new VerbalExpressions();
+        $regex->digit();
+
+        $this->assertTrue($regex->test('0123456789'));
+
+        foreach (str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ_-@,./%*') as $char) {
+            $this->assertFalse($regex->test($char), 'Should not match digit ('.$char.')');
+        }
+    }
+
     public function testAny()
     {
         $regex = new VerbalExpressions();
