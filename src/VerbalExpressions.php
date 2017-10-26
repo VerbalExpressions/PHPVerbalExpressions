@@ -297,19 +297,18 @@ class VerbalExpressions
      * @return VerbalExpressions
      * @throws \InvalidArgumentException
      */
-    public function range()
+    public function range(... $args)
     {
-        $arg_num = func_num_args();
+        $arg_num = count($args);
 
         if ($arg_num%2 != 0) {
             throw new \InvalidArgumentException('Number of args must be even', 1);
         }
 
         $value = '[';
-        $arg_list = func_get_args();
 
         for ($i = 0; $i < $arg_num;) {
-            $value .= self::sanitize($arg_list[$i++]) . '-' . self::sanitize($arg_list[$i++]);
+            $value .= self::sanitize($args[$i++]) . '-' . self::sanitize($args[$i++]);
         }
 
         $value .= ']';
