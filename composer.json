@@ -4,7 +4,7 @@
     "type": "project",
     "description": "PHP Regular expressions made easy",
     "require": {
-        "php": ">=5.3",
+        "php": ">=5.6",
         "friendsofphp/php-cs-fixer": "^2.7"
     },
     "require-dev": {
@@ -23,5 +23,10 @@
         "psr-4": {
             "VerbalExpressions\\PHPVerbalExpressions\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
     }
 }
