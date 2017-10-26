@@ -8,3 +8,4 @@ before_script:
   - composer install
 script:
   - composer check-style
+  - composer test
