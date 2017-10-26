@@ -18,5 +18,10 @@
         "psr-4": {
             "VerbalExpressions\\PHPVerbalExpressions\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VerbalExpressions\\PHPVerbalExpressions\\Tests\\": "tests/"
+        }
     }
 }

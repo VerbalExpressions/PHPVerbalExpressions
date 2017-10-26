@@ -1,8 +1,11 @@
 <?php
 
-use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
+namespace VerbalExpressions\PHPVerbalExpressions\Tests;
 
-class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
+use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
+use PHPUnit\Framework\TestCase;
+
+class VerbalExpressionsTest extends TestCase
 {
     /**
      * @dataProvider provideValidUrls
