@@ -1,8 +1,11 @@
 <?php
 
-use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
+namespace VerbalExpressions\PHPVerbalExpressions\Tests;
 
-class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
+use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
+use PHPUnit\Framework\TestCase;
+
+class VerbalExpressionsTest extends TestCase
 {
     /**
      * @dataProvider provideValidUrls
@@ -314,7 +317,7 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testGetRegex_multiple()
+    public function testGetRegexMultiple()
     {
         $regex = new VerbalExpressions();
         $regex->startOfLine()
@@ -326,7 +329,7 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @expectedException InvalidArgumentException
     */
-    public function testRange_throwsException()
+    public function testRangeThrowsException()
     {
         $regex = new VerbalExpressions();
         $regex->range(1, 2, 3);
@@ -335,7 +338,7 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testRange_lowercase()
+    public function testRangeLowercase()
     {
         $lowercaseAlpha = new VerbalExpressions();
         $lowercaseAlpha->range('a', 'z')
@@ -360,7 +363,7 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testRange_uppercase()
+    public function testRangeUppercase()
     {
         $uppercaseAlpha = new VerbalExpressions();
         $uppercaseAlpha->range('A', 'Z')
@@ -387,7 +390,7 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testRange_numerical()
+    public function testRangeNumerical()
     {
         $zeroToNine = new VerbalExpressions();
         $zeroToNine->range(0, 9)
@@ -418,7 +421,7 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     /**
     * @depends testGetRegex
     */
-    public function testRange_hexadecimal()
+    public function testRangeHexadecimal()
     {
         $hexadecimal = new VerbalExpressions();
         $hexadecimal->startOfLine()
@@ -435,9 +438,9 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-    * @depends testRange_hexadecimal
+    * @depends testRangeHexadecimal
     */
-    public function testRange_md5()
+    public function testRangeMd5()
     {
         $md5 = new VerbalExpressions();
         $md5->startOfLine()
@@ -454,9 +457,9 @@ class VerbalExpressionsTest extends PHPUnit_Framework_TestCase
     }
 
     /*
-    * @depends testRange_hexadecimal
+    * @depends testRangeHexadecimal
     */
-    public function testRange_sha1()
+    public function testRangeSha1()
     {
         $sha1 = new VerbalExpressions();
         $sha1->startOfLine()
