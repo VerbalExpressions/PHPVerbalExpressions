@@ -10,21 +10,22 @@ VerbalExpressions is a PHP library that helps to construct hard regular expressi
 
 // some tests
 
-$regex = new VerbalExpressions;
+$regex = new VerbalExpressions();
 
-$regex  ->startOfLine()
-        ->then("http")
-        ->maybe("s")
-        ->then("://")
-        ->maybe("www.")
-        ->anythingBut(" ")
-        ->endOfLine();
+$regex->startOfLine()
+      ->then("http")
+      ->maybe("s")
+      ->then("://")
+      ->maybe("www.")
+      ->anythingBut(" ")
+      ->endOfLine();
 
 
-if($regex->test("https://github.com/"))
-    echo "valid url";
-else
-    echo "invalid url";
+if ($regex->test("http://github.com")) {
+    echo "valid url". '<br>';
+} else {
+    echo "invalid url". '<br>';
+}
 
 if (preg_match($regex, 'http://github.com')) {
     echo 'valid url';
@@ -35,11 +36,9 @@ if (preg_match($regex, 'http://github.com')) {
 
 echo "<pre>". $regex->getRegex() ."</pre>";
 
-
-
-echo $regex ->clean(array("modifiers" => "m", "replaceLimit" => 4))
-            ->find(' ')
-            ->replace("This is a small test http://somesite.com and some more text.", "-");
+echo $regex->clean(array("modifiers" => "m", "replaceLimit" => 4))
+           ->find(' ')
+           ->replace("This is a small test http://somesite.com and some more text.", "-");
 
 ```
 
