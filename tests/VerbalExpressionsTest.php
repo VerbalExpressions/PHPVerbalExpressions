@@ -2,8 +2,10 @@
 
 namespace VerbalExpressions\PHPVerbalExpressions\Tests;
 
-use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
+use VerbalExpressions\PHPVerbalExpressions\VerbalExpressionsProvider;
 
 class VerbalExpressionsTest extends TestCase
 {
@@ -13,13 +15,13 @@ class VerbalExpressionsTest extends TestCase
      */
     public function testShouldPassWhenValidUrlGiven($url)
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $this->buildUrlPattern($regex);
 
         $this->assertTrue($regex->test($url));
 
 
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $this->buildUrlPatternAliased($regex);
 
         $this->assertTrue($regex->test($url));
@@ -43,7 +45,7 @@ class VerbalExpressionsTest extends TestCase
      */
     public function testShouldFailWithInvalidUrls($url)
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $this->buildUrlPattern($regex);
 
         $this->assertFalse($regex->test($url));
@@ -85,7 +87,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testTest()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->find('regex');
 
         $this->assertTrue($regex->test('testing regex string'));
@@ -102,7 +104,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testThenAfterStartOfLine()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->then('a')
             ->endOfLine();
@@ -113,7 +115,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testThenSomewhere()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine(false)
             ->then('a')
             ->endOfLine(false);
@@ -127,7 +129,7 @@ class VerbalExpressionsTest extends TestCase
      */
     public function testAnything($needle)
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->anything()
             ->endOfLine();
@@ -149,7 +151,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testAnythingBut()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->anythingBut('a')
             ->endOfLine();

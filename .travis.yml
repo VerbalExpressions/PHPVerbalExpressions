@@ -1,11 +1,18 @@
 language: php
 php:
+  - '5.4'
+  - '5.5'
   - '5.6'
   - '7.0'
   - hhvm
   - nightly
+matrix:
+  include:
+    - php: "5.3"
+      dist: precise
 before_script:
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} != "5.6" ]] then composer remove --dev squizlabs/php_codesniffer ; fi
   - composer install
 script:
-  - composer check-style
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]] then composer check-style ; fi
   - composer test
