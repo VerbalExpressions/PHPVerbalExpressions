@@ -4,7 +4,7 @@ namespace VerbalExpressions\PHPVerbalExpressions\Tests;
 
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
-use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
+use VerbalExpressions\PHPVerbalExpressions\AbstractVerbalExpressions;
 use VerbalExpressions\PHPVerbalExpressions\VerbalExpressionsProvider;
 
 class VerbalExpressionsTest extends TestCase
@@ -62,7 +62,7 @@ class VerbalExpressionsTest extends TestCase
         );
     }
 
-    protected function buildUrlPattern(VerbalExpressions $regex)
+    protected function buildUrlPattern(AbstractVerbalExpressions $regex)
     {
         return $regex->startOfLine()
             ->then("http")
@@ -73,7 +73,7 @@ class VerbalExpressionsTest extends TestCase
             ->endOfLine();
     }
 
-    protected function buildUrlPatternAliased(VerbalExpressions $regex)
+    protected function buildUrlPatternAliased(AbstractVerbalExpressions $regex)
     {
         return $regex->startOfLine()
             ->find("http")
@@ -163,7 +163,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testAnythingButQuote()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->anythingBut('[')
             ->endOfLine();
@@ -178,7 +178,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testSomething()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->something()
             ->endOfLine();
@@ -191,7 +191,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testSomethingBut()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->somethingBut('a')
             ->endOfLine();
@@ -207,7 +207,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testBr()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->something()
             ->br()
@@ -220,7 +220,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testLineBreak()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->something()
             ->lineBreak()
@@ -233,7 +233,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testTab()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->something()
             ->tab()
@@ -246,7 +246,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testWord()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->word()
             ->endOfLine();
@@ -262,7 +262,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testDigit()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->digit();
 
         $this->assertTrue($regex->test('0123456789'));
@@ -274,7 +274,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testAny()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->any('a1M')
             ->endOfLine();
@@ -289,7 +289,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testAnyOf()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->anyOf('a1M')
             ->endOfLine();
@@ -305,7 +305,7 @@ class VerbalExpressionsTest extends TestCase
 
     public function testGetRegex()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->range(0, 9, 'a', 'z', 'A', 'Z')
             ->multiple('');
@@ -321,7 +321,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testGetRegexMultiple()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->startOfLine()
             ->multiple('regex');
 
@@ -333,7 +333,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testRangeThrowsException()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->range(1, 2, 3);
     }
 
@@ -342,11 +342,11 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testRangeLowercase()
     {
-        $lowercaseAlpha = new VerbalExpressions();
+        $lowercaseAlpha = VerbalExpressionsProvider::get();
         $lowercaseAlpha->range('a', 'z')
             ->multiple('');
 
-        $lowercaseAlpha_all = new VerbalExpressions();
+        $lowercaseAlpha_all = VerbalExpressionsProvider::get();
         $lowercaseAlpha_all->startOfLine()
             ->range('a', 'z')
             ->multiple('')
@@ -367,11 +367,11 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testRangeUppercase()
     {
-        $uppercaseAlpha = new VerbalExpressions();
+        $uppercaseAlpha = VerbalExpressionsProvider::get();
         $uppercaseAlpha->range('A', 'Z')
             ->multiple('');
 
-        $uppercaseAlpha_all = new VerbalExpressions();
+        $uppercaseAlpha_all = VerbalExpressionsProvider::get();
         $uppercaseAlpha_all->startOfLine()
             ->range('A', 'Z')
             ->multiple('')
@@ -394,11 +394,11 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testRangeNumerical()
     {
-        $zeroToNine = new VerbalExpressions();
+        $zeroToNine = VerbalExpressionsProvider::get();
         $zeroToNine->range(0, 9)
             ->multiple('');
 
-        $zeroToNine_all = new VerbalExpressions();
+        $zeroToNine_all = VerbalExpressionsProvider::get();
         $zeroToNine_all->startOfLine()
             ->range(0, 9)
             ->multiple('')
@@ -425,7 +425,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testRangeHexadecimal()
     {
-        $hexadecimal = new VerbalExpressions();
+        $hexadecimal = VerbalExpressionsProvider::get();
         $hexadecimal->startOfLine()
             ->range(0, 9, 'a', 'f')
             ->multiple('')
@@ -444,7 +444,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testRangeMd5()
     {
-        $md5 = new VerbalExpressions();
+        $md5 = VerbalExpressionsProvider::get();
         $md5->startOfLine()
             ->range(0, 9, 'a', 'f')
             ->limit(32)
@@ -463,7 +463,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testRangeSha1()
     {
-        $sha1 = new VerbalExpressions();
+        $sha1 = VerbalExpressionsProvider::get();
         $sha1->startOfLine()
             ->range(0, 9, 'a', 'f')
             ->limit(40)
@@ -482,7 +482,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testRemoveModifier()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->range('a', 'z');
 
         $this->assertEquals('/[a-z]/m', $regex->getRegex());
@@ -497,7 +497,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testWithAnyCase()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->range('a', 'z')
             ->searchOneLine(false)
             ->withAnyCase();
@@ -514,7 +514,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testOr()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->find('foo')
             ->_or('bar');
 
@@ -532,7 +532,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testClean()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->removeModifier('m')
             ->stopAtFirst()
             ->searchOneLine();
@@ -554,7 +554,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testLimit()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
 
         $regex->add('a')
             ->limit(1);
@@ -580,7 +580,7 @@ class VerbalExpressionsTest extends TestCase
     */
     public function testReplace()
     {
-        $regex = new VerbalExpressions();
+        $regex = VerbalExpressionsProvider::get();
         $regex->add('foo');
 
         $this->assertEquals('/foo/m', $regex->getRegex());

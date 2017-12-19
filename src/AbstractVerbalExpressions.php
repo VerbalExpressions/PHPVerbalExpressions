@@ -37,7 +37,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $value the stuff to be added
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function add($value)
     {
@@ -53,7 +53,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  boolean $enable Enables or disables the line starting. Default value: true
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function startOfLine($enable = true)
     {
@@ -69,7 +69,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  boolean $enable Enables or disables the line ending. Default value: true
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function endOfLine($enable = true)
     {
@@ -85,7 +85,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $value The string to be looked for
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function then($value)
     {
@@ -97,7 +97,7 @@ abstract class AbstractVerbalExpressions
      *
      * alias for then()
      * @param  string $value The string to be looked for
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function find($value)
     {
@@ -111,7 +111,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $value The string to be looked for
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function maybe($value)
     {
@@ -124,7 +124,7 @@ abstract class AbstractVerbalExpressions
      * Accept any string
      *
      * @access public
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function anything()
     {
@@ -138,7 +138,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $value The unaccepted chars
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function anythingBut($value)
     {
@@ -151,7 +151,7 @@ abstract class AbstractVerbalExpressions
      * Accept any non-empty string
      *
      * @access public
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function something()
     {
@@ -165,7 +165,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $value The unaccepted chars
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function somethingBut($value)
     {
@@ -180,7 +180,7 @@ abstract class AbstractVerbalExpressions
      * @access public
      * @param  string $source the string that will be affected(subject)
      * @param  string $value  the replacement
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function replace($source, $value)
     {
@@ -200,7 +200,7 @@ abstract class AbstractVerbalExpressions
      * Match line break
      *
      * @access public
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function lineBreak()
     {
@@ -213,7 +213,7 @@ abstract class AbstractVerbalExpressions
      * Shorthand for lineBreak
      *
      * @access public
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function br()
     {
@@ -226,7 +226,7 @@ abstract class AbstractVerbalExpressions
      * Match tabs.
      *
      * @access public
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function tab()
     {
@@ -239,7 +239,7 @@ abstract class AbstractVerbalExpressions
      * Match any alpha numeric
      *
      * @access public
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function word()
     {
@@ -252,7 +252,7 @@ abstract class AbstractVerbalExpressions
      * Match any digit
      *
      * @access public
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function digit()
     {
@@ -266,7 +266,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $value The chars looked for
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function anyOf($value)
     {
@@ -280,7 +280,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $value The chars looked for
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function any($value)
     {
@@ -294,7 +294,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access protected
      * @param string[] $args
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      * @throws \InvalidArgumentException
      */
     abstract public function range();
@@ -306,7 +306,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access protected
      * @param string[] $args
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      * @throws \InvalidArgumentException
      */
     protected function addRange(array $args)
@@ -335,7 +335,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $modifier
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function addModifier($modifier)
     {
@@ -353,7 +353,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $modifier
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function removeModifier($modifier)
     {
@@ -369,7 +369,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  boolean $enable Enables or disables case sensitive. Default true
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function withAnyCase($enable = true)
     {
@@ -383,7 +383,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  boolean $enable Enables or disables g modifier. Default true
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function stopAtFirst($enable = true)
     {
@@ -397,7 +397,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  boolean $enable Enables or disables m modifier. Default true
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function searchOneLine($enable = true)
     {
@@ -411,7 +411,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $value Your expression
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function multiple($value)
     {
@@ -434,7 +434,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  string $value new expression
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function _or($value)
     {
@@ -509,7 +509,7 @@ abstract class AbstractVerbalExpressions
      *
      * @access public
      * @param  array $options
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function clean(array $options = array())
     {
@@ -543,7 +543,7 @@ abstract class AbstractVerbalExpressions
      * @access public
      * @param integer $min
      * @param integer $max
-     * @return VerbalExpressions
+     * @return AbstractVerbalExpressions
      */
     public function limit($min, $max = 0)
     {
