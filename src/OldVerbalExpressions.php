@@ -7,7 +7,6 @@ namespace VerbalExpressions\PHPVerbalExpressions;
  * @author Mihai Ionut Vilcu (ionutvmi@gmail.com)
  * 22.July.2013
  */
-
 class OldVerbalExpressions extends AbstractVerbalExpressions
 {
     /**

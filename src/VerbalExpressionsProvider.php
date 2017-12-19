@@ -14,7 +14,7 @@ class VerbalExpressionsProvider
      * @return OldVerbalExpressions|VerbalExpressions
      */
     public static function get() {
-        if(version_compare(phpversion(),'5.6.0', '<')) {
+        if(!defined('HHVM_VERSION') && version_compare(phpversion(),'5.6.0', '<')) {
             return new OldVerbalExpressions();
         }
         return new VerbalExpressions();

@@ -12,6 +12,9 @@ matrix:
   include:
     - php: "5.3"
       dist: precise
+git:
+#there should rarely be a need to clone 50 deep, so this is just reducing build-time
+  depth: 5
 before_script:
 # no need to provide coverage more than once and no need for the speedbump otherwise
   - if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]]; then phpenv config-rm xdebug.ini || true ; fi
