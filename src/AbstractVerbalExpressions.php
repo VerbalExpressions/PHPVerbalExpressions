@@ -495,8 +495,8 @@ abstract class AbstractVerbalExpressions
         // php doesn't have g modifier so we remove it if it's there and call preg_match_all()
         if (strpos($this->modifiers, 'g') !== false) {
             $this->modifiers = str_replace('g', '', $this->modifiers);
-
-            return preg_match_all($this->getRegex(), $value);
+            $matches = array();//required for php < 5.4
+            return preg_match_all($this->getRegex(), $value, $matches);
         }
 
         return (bool) preg_match($this->getRegex(), $value);
