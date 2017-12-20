@@ -10,7 +10,7 @@ VerbalExpressions is a PHP library that helps to construct hard regular expressi
 
 // some tests
 
-$regex = new VerbalExpressions();
+$regex = VerbalExpressionsProvider::get();
 
 $regex->startOfLine()
       ->then("http")

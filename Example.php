@@ -7,7 +7,7 @@
 
 $loader = require __DIR__ . '/vendor/autoload.php';
 
-$regex = new \VerbalExpressions\PHPVerbalExpressions\VerbalExpressions();
+$regex = \VerbalExpressions\PHPVerbalExpressions\VerbalExpressionsProvider::get();
 
 $regex->startOfLine()
       ->then("http")
