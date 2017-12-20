@@ -1,5 +1,7 @@
+# General Ignores
 /vendor
 composer.lock
 /phpunit/
+# IDEs
 .idea/
 /nbproject/
