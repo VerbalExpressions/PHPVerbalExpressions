@@ -297,8 +297,9 @@ class VerbalExpressions
      * @return VerbalExpressions
      * @throws \InvalidArgumentException
      */
-    public function range(... $args)
+    public function range()
     {
+        $args = func_get_args();
         $arg_num = count($args);
 
         if ($arg_num%2 != 0) {
@@ -483,8 +484,8 @@ class VerbalExpressions
         // php doesn't have g modifier so we remove it if it's there and call preg_match_all()
         if (strpos($this->modifiers, 'g') !== false) {
             $this->modifiers = str_replace('g', '', $this->modifiers);
-
-            return preg_match_all($this->getRegex(), $value);
+            $matches = array();//because it's not optional in <5.4
+            return preg_match_all($this->getRegex(), $value, $matches);
         }
 
         return (bool) preg_match($this->getRegex(), $value);

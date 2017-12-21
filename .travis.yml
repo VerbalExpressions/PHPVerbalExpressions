@@ -1,11 +1,27 @@
 language: php
 php:
+  - '5.4'
+  - '5.5'
   - '5.6'
   - '7.0'
+  - '7.1'
+  - '7.2'
   - hhvm
   - nightly
+matrix:
+  include:
+    - php: "5.3"
+      dist: precise
+git:
+#there should rarely be a need to clone 50 deep, so this is just reducing build-time
+  depth: 5
 before_script:
+# no need to provide coverage more than once and no need for the speedbump otherwise
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]]; then phpenv config-rm xdebug.ini || true ; fi
+# no need to test formatting more than once and php_codesniffer does not work with older php
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} != "5.6" ]]; then composer remove --dev squizlabs/php_codesniffer ; fi
   - composer install
 script:
-  - composer check-style
+# since it's disabled otherwise...
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]]; then composer check-style ; fi
   - composer test
