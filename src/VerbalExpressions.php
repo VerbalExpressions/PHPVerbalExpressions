@@ -96,7 +96,9 @@ class VerbalExpressions
     /**
      * Find
      *
-     * alias for then()
+     * Alias for then()
+     *
+     * @access public
      * @param  string $value The string to be looked for
      * @return VerbalExpressions
      */
@@ -473,7 +475,7 @@ class VerbalExpressions
     /**
      * Test
      *
-     * tests the match of a string to the current regex
+     * Tests the match of a string to the current regex
      *
      * @access public
      * @param  string  $value The string to be tested
@@ -494,7 +496,7 @@ class VerbalExpressions
     /**
      * Clean
      *
-     * deletes the current regex for a fresh start
+     * Deletes the current regex for a fresh start
      *
      * @access public
      * @param  array $options
