@@ -5,14 +5,14 @@
 
 VerbalExpressions is a PHP library that helps to construct hard regular expressions.  
 
-##Installation
+## Installation
 The project supports Composer so you have to install [Composer](http://getcomposer.org/doc/00-intro.md#installation-nix) first, before project setup.
 
 ```sh
 $ composer require  verbalexpressions/php-verbal-expressions:dev-master
 ```
 
-##Examples
+## Examples
 
 ```php
 
@@ -50,13 +50,13 @@ echo $regex->clean(array("modifiers" => "m", "replaceLimit" => 4))
 
 ```
 
-###Business readable language  expression definition
+### Business readable language  expression definition
 ```PHP
 $definition = 'start, then "http", maybe "s", then "://", maybe "www.", anything but " ", end';
 $regex = new VerbalExpressionsScenario($definition);
 ```
 
-##Methods list
+## Methods list
 
 Name|Description|Usage
 :---|:---|:---
@@ -106,5 +106,4 @@ The project supports Composer so you have to install [Composer](https://getcompo
     php composer.phar install --dev
     ln -s vendor/phpunit/phpunit/phpunit.php phpunit
     ./phpunit
-    
 
