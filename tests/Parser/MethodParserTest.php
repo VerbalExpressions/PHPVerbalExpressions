@@ -3,12 +3,14 @@
 namespace VerbalExpressions\Test\PHPVerbalExpressions\Parser;
 
 use VerbalExpressions\PHPVerbalExpressions\Parser\MethodParser;
+use PHPUnit\Framework\TestCase;
+
 /**
  * MethodParser based on Verbal Expressions v0.1 (https://github.com/jehna/VerbalExpressions) ported in PHP
  *
  * @author Nicola Pietroluongo <nik.longstone@gmail.com>
  */
-class MethodParserTest extends \PHPUnit_Framework_TestCase
+class MethodParserTest extends TestCase
 {
     private $methodParser;
 

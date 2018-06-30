@@ -1,8 +1,9 @@
 <?php
 
 use VerbalExpressions\PHPVerbalExpressions\VerbalExpressionsScenario;
+use PHPUnit\Framework\TestCase;
 
-class VerbalExpressionsScenarioTest extends \PHPUnit_Framework_TestCase
+class VerbalExpressionsScenarioTest extends TestCase
 {
     /**
      * @dataProvider expressionProvider
