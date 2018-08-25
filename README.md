@@ -52,6 +52,11 @@ echo $regex->clean(array("modifiers" => "m", "replaceLimit" => 4))
 
 ```
 
+More examples are available in the following files:
+
+- [Examples.php](Examples.php)
+- [VerbalExpressionsTest.php](tests/VerbalExpressionsTest.php)
+
 ### Business readable language  expression definition
 ```PHP
 $definition = 'start, then "http", maybe "s", then "://", maybe "www.", anything but " ", end';
