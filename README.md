@@ -15,8 +15,10 @@ $ composer require  verbalexpressions/php-verbal-expressions:dev-master
 ## Examples
 
 ```php
-
+<?php
 // some tests
+require './vendor/autoload.php';
+use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
 
 $regex = new VerbalExpressions();
 
