@@ -19,6 +19,11 @@ class MethodParserTest extends TestCase
         $this->methodParser = new MethodParser();
     }
 
+    public function testParseWithEmptyText()
+    {
+        $this->assertNull($this->methodParser->parse(''));
+    }
+
     /**
      * @dataProvider methodsList
      */
