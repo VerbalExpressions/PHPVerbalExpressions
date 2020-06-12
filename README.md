@@ -69,7 +69,7 @@ Name|Description|Usage
 :---|:---|:---
 add| add values to the expression| add('abc')
 startOfLine| mark expression with ^| startOfLine(false)
-endoOfLine| mark the expression with $|endOfLine()
+endOfLine| mark the expression with $|endOfLine()
 then|add a string to the expression| add('foo')
 find| alias for then| find('foo')
 maybe| define a string that might appear once or not| maybe('.com')
